@@ -1,0 +1,104 @@
+<mat-card>
+    <mat-card-content>
+        <mat-card-title>Agregar un producto</mat-card-title>
+        <form [formGroup]="formInsertarProducto">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <!-- Nombre -->
+                    <mat-form-field>
+                        <mat-label>Nombre</mat-label>
+                        <input type="text" matInput placeholder="Nombre" formControlName="nombre">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- Precio -->
+                    <mat-form-field>
+                        <mat-label>Precio</mat-label>
+                        <input type="number" matInput placeholder="Precio" formControlName="precio">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- Código -->
+                    <mat-form-field>
+                        <mat-label>Código</mat-label>
+                        <input type="text" matInput placeholder="Código" formControlName="codigo">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- Código -->
+                    <mat-form-field>
+                        <mat-label>Marca</mat-label>
+                        <input type="text" matInput placeholder="Marca" formControlName="marca">
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <!-- Nombre -->
+                    <mat-form-field>
+                        <mat-label>Descripción</mat-label>
+                        <textarea matInput placeholder="Descripción del producto" formControlName="descripcion"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        <button mat-raised-button color="primary" (click)="insertarProducto()">Agregar</button>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+    <mat-card-content>
+        <mat-card-title>Prodouctos registrados</mat-card-title>
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <mat-table #table [dataSource]="dataSource" matSort>
+
+            <!-- Posición Column -->
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+            </ng-container>
+        
+            <!-- Descripición Column -->
+            <ng-container matColumnDef="descripcion">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Descripición </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+            </ng-container>
+        
+            <!-- Precio Column -->
+            <ng-container matColumnDef="precio">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Precio </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.precio}} </mat-cell>
+            </ng-container>
+        
+            <!-- Código Column -->
+            <ng-container matColumnDef="codigo">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+            </ng-container>
+
+            <!-- Marca Column -->
+            <ng-container matColumnDef="marca">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Marca </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.marca}} </mat-cell>
+            </ng-container>
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                    <button mat-icon-button color="basic">
+                        <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="basic">
+                        <mat-icon aria-label="Example icon-button with a heart icon" (click)="eliminarProducto(element.id)">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>
