@@ -35,7 +35,8 @@
                     <!-- Nombre -->
                     <mat-form-field>
                         <mat-label>Descripción</mat-label>
-                        <textarea matInput placeholder="Descripción del producto" formControlName="descripcion"></textarea>
+                        <textarea matInput placeholder="Descripción del producto"
+                            formControlName="descripcion"></textarea>
                     </mat-form-field>
                 </div>
             </div>
@@ -54,26 +55,26 @@
 
             <!-- Posición Column -->
             <ng-container matColumnDef="nombre">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
             </ng-container>
-        
+
             <!-- Descripición Column -->
             <ng-container matColumnDef="descripcion">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Descripición </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Descripición </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
             </ng-container>
-        
+
             <!-- Precio Column -->
             <ng-container matColumnDef="precio">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Precio </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.precio}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Precio </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.precio}} </mat-cell>
             </ng-container>
-        
+
             <!-- Código Column -->
             <ng-container matColumnDef="codigo">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
             </ng-container>
 
             <!-- Marca Column -->
@@ -85,16 +86,17 @@
             <!-- Id Column -->
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-                <mat-cell *matCellDef="let element"> 
+                <mat-cell *matCellDef="let element">
                     <button mat-icon-button color="basic">
-                        <mat-icon aria-label="Example icon-button with a heart icon">edit</mat-icon>
+                        <mat-icon aria-label="Example icon-button with a heart icon" (click)="editarProductoOnClick(element)">edit</mat-icon>
                     </button>
                     <button mat-icon-button color="basic">
-                        <mat-icon aria-label="Example icon-button with a heart icon" (click)="eliminarProducto(element.id)">delete</mat-icon>
+                        <mat-icon aria-label="Example icon-button with a heart icon"
+                            (click)="eliminarProducto(element.id)">delete</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>
-        
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>

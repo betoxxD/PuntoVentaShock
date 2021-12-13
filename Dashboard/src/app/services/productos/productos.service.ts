@@ -66,7 +66,7 @@ export class ProductosService {
   }
 
   update(id: number, producto: Producto) {
-    return this.http.put(`${this.url}${id}`, producto).pipe(
+    return this.http.put(`${this.url}/${id}`, producto).pipe(
       map((res: any) => {
         return res;
       }),

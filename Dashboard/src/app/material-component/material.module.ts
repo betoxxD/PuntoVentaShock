@@ -33,6 +33,8 @@ import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ProductosComponent } from './productos/productos.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModifyProductModalComponent } from './productos/modify-product-modal/modify-product-modal.component';
 
 @NgModule({
   imports: [
@@ -44,7 +46,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ReactiveFormsModule,
     FlexLayoutModule,
     CdkTableModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    MatDialogModule
   ],
   providers: [],
   entryComponents: [DialogOverviewExampleDialogComponent],
@@ -66,7 +69,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     SnackbarComponent,
     SliderComponent,
     SlideToggleComponent,
-    ProductosComponent
+    ProductosComponent,
+    ModifyProductModalComponent,
   ]
 })
 export class MaterialComponentsModule {}
