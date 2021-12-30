@@ -17,6 +17,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ProductosComponent } from './productos/productos.component';
+import { VendedorComponent } from './vendedor/vendedor.component';
 
 export const MaterialRoutes: Routes = [
   {
@@ -26,6 +27,10 @@ export const MaterialRoutes: Routes = [
   {
     path: 'productos',
     component: ProductosComponent
+  },
+  {
+    path: 'vendedor',
+    component: VendedorComponent
   },
   {
     path: 'grid',
