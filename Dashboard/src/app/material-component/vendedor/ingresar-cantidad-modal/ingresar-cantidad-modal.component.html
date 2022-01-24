@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Selecciona una cantidad</h1>
+<div mat-dialog-content>
+    <h4>{{producto?.nombre}}</h4>
+    <h5>Precio: ${{producto?.precio}}</h5>
+    <!-- Nombre -->
+    <mat-form-field>
+        <mat-label>Cantidad</mat-label>
+        <input type="number" matInput placeholder="Cantidad" [(ngModel)]="cantidad" cdkFocusInitial (keyup.enter)="closeWithData()">
+    </mat-form-field>
+    <h5>Subtotal: ${{cantidad * producto?.precio}}</h5>
+</div>
+<div class="mat-dialog-actions">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button (click)="closeWithData()">Aceptar</button>
+</div>

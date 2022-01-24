@@ -1,6 +1,76 @@
 <mat-card>
-    <mat-card-title>Realizar venta</mat-card-title>
+    <mat-card-header>
+        <mat-card-title>
+            Venta
+        </mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-        
+        <form [formGroup]="form">
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput placeholder="Buscar" list="search-list" [matAutocomplete]="auto"
+                    (input)="filtrarProductosOnInput($event)" (keyup.enter)="agregarProductoOnChange()"
+                    formControlName="buscar">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let producto of productos" [value]="producto.codigo">
+                        ({{producto.codigo}}) {{ producto.nombre }} - ${{ producto.precio }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+        <mat-table #table [dataSource]="dataSource">
+
+            <!-- Acciones Column -->
+            <ng-container matColumnDef="accion">
+                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="basic">
+                        <mat-icon aria-label="Example icon-button with a heart icon" (click)="editarProductoOnClick(element)">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="basic">
+                        <mat-icon aria-label="Example icon-button with a heart icon" (click)="eliminarProducto(element)">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Subtotal Column -->
+            <ng-container matColumnDef="subtotal">
+                <mat-header-cell *matHeaderCellDef> subtotal </mat-header-cell>
+                <mat-cell *matCellDef="let element"> ${{element.cantidad * element.precio}} </mat-cell>
+            </ng-container>
+
+            <!-- Cantidad Column -->
+            <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.cantidad}} </mat-cell>
+            </ng-container>
+
+            <!-- Precio Column -->
+            <ng-container matColumnDef="precio">
+                <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+                <mat-cell *matCellDef="let element"> ${{element.precio}} </mat-cell>
+            </ng-container>
+
+            <!-- Código Column -->
+            <ng-container matColumnDef="codigo">
+                <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+            </ng-container>
+
+            <!-- Marca Column -->
+            <ng-container matColumnDef="marca">
+                <mat-header-cell *matHeaderCellDef> Marca </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.marca}} </mat-cell>
+            </ng-container>
+
+            <!-- Posición Column -->
+            <ng-container matColumnDef="nombre">
+                <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
     </mat-card-content>
 </mat-card>
