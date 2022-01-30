@@ -1,4 +1,4 @@
-import { Producto } from './prodicto.interface';
+import { Producto } from './producto.interface';
 export interface CarritoDetalle {
     producto: Producto,
     cantidad: number,

@@ -1,0 +1,50 @@
+.ticket-principal {
+  width: 80mm;
+  margin: 0 auto;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+.logo-contenedor {
+  text-align: center;
+  font-size: 12px;
+}
+
+.logo-contenedor h3 {
+    margin: 0;
+    padding: 0;
+  }
+
+.informacion-general-contenedor {
+  text-align: center;
+  font-size: 9px;
+}
+
+.informacion-general-contenedor p {
+  padding: 0;
+  margin: 4px;
+}
+
+.tabla-productos {
+  font-size: 9px;
+}
+
+.tabla-productos table {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.nota {
+  font-size: 9px;
+  text-align: center;
+}
+
+.fecha-hora {
+  font-size: 9px;
+  text-align: center;
+}
+
+.fecha-hora p {
+  padding: 0;
+  margin: 0;
+}

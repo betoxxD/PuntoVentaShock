@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatTable } from "@angular/material/table";
-import { Producto } from "src/app/models/prodicto.interface";
+import { Producto } from "src/app/models/producto.interface";
 import { ProductosService } from "src/app/services/productos/productos.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { IngresarCantidadModalComponent } from "./ingresar-cantidad-modal/ingresar-cantidad-modal.component";
 import { MatDialog } from "@angular/material/dialog";
+import * as printJS from "print-js";
+import { TicketComponent } from './ticket/ticket.component';
 
 @Component({
   selector: "app-vendedor",
@@ -160,6 +162,21 @@ export class VendedorComponent implements OnInit {
     this.total = 0;
     this.carrito.forEach((producto) => {
       this.total += producto.precio * producto.cantidad!;
+    });
+  }
+
+  // Imprime el carrito
+  imprimirCarrito() {
+    const dialogRef = this.dialog.open(TicketComponent, {
+      width: "500px",
+      data: { carrito:  [...this.carrito]  },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+      if (!!result) {
+        
+      }
     });
   }
 }

@@ -37,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModifyProductModalComponent } from './productos/modify-product-modal/modify-product-modal.component';
 import { VendedorComponent } from './vendedor/vendedor.component';
 import { IngresarCantidadModalComponent } from './vendedor/ingresar-cantidad-modal/ingresar-cantidad-modal.component';
+import { TicketComponent } from './vendedor/ticket/ticket.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,7 @@ import { IngresarCantidadModalComponent } from './vendedor/ingresar-cantidad-mod
     FlexLayoutModule,
     CdkTableModule,
     SweetAlert2Module,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   entryComponents: [DialogOverviewExampleDialogComponent],
@@ -75,6 +76,7 @@ import { IngresarCantidadModalComponent } from './vendedor/ingresar-cantidad-mod
     ModifyProductModalComponent,
     VendedorComponent,
     IngresarCantidadModalComponent,
+    TicketComponent,
   ]
 })
 export class MaterialComponentsModule {}

@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>Imprimiendo ticket</h1>
+<div mat-dialog-content class="ticket-principal" id="ticket">
+    <div class="ticket-contenedor">
+        <div class="logo-contenedor">
+            <h3>SHOCK¡</h3>
+            <h3>CASUAL</h3>
+        </div>
+        <div class="informacion-general-contenedor">
+            <p>Tianguis la Herradura Local 93</p>
+            <p>C.P. 38980 Uriangato, Gto.</p>
+            <p>Shock Diomars</p>
+            <p>445 113 92 68</p>
+        </div>
+        <div class="tabla-productos">
+            <table>
+                <thead>
+                    <tr>
+                        <th>CANT.</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>PRECIO UNIT.</th>
+                        <th>IMPORTE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of carrito">
+                        <td>{{producto.cantidad}}</td>
+                        <td>{{producto.nombre}} {{producto.codigo}}</td>
+                        <td>${{producto.precio}}</td>
+                        <td>${{producto.cantidad * producto.precio}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <th>Total:</th>
+                        <td>${{calcularTotal()}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="nota">
+            <p>Nota: No se aceptan cambios ni devoluciones.</p>
+        </div>
+        <div class="fecha-hora">
+            <p>{{obtenerFechaActual()}} {{obtenerHoraActual()}}</p>
+        </div>
+    </div>
+</div>
+<div class="mat-dialog-actions">
+    <button (click)="onNoClick()" mat-button>Aceptar</button>
+</div>
