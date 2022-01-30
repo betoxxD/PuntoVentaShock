@@ -22,11 +22,6 @@ class Producto extends RestController
 	{
 		$query = $this->db->get('producto');
 		$result = $query->result();
-		foreach ($result as $row) {
-			$this->db->where('id', $row->id_subcategoria);
-			$query = $this->db->get('subcategoria');
-			$row->subcategoria = $query->row();
-		}
 		$respuesta = array(
 			'err' => FALSE,
 			'cuantos' => count($result),

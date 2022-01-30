@@ -36,6 +36,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModifyProductModalComponent } from './productos/modify-product-modal/modify-product-modal.component';
 import { VendedorComponent } from './vendedor/vendedor.component';
+import { IngresarCantidadModalComponent } from './vendedor/ingresar-cantidad-modal/ingresar-cantidad-modal.component';
 
 @NgModule({
   imports: [
@@ -73,6 +74,7 @@ import { VendedorComponent } from './vendedor/vendedor.component';
     ProductosComponent,
     ModifyProductModalComponent,
     VendedorComponent,
+    IngresarCantidadModalComponent,
   ]
 })
 export class MaterialComponentsModule {}

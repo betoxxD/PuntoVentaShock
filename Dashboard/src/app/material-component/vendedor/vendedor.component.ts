@@ -14,6 +14,8 @@ import { MatDialog } from "@angular/material/dialog";
 export class VendedorComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
 
+  editarFlag = false;
+
   form: FormGroup;
 
   todosProductos: Producto[] = [];
@@ -21,7 +23,17 @@ export class VendedorComponent implements OnInit {
 
   carrito: Producto[] = [];
 
-  displayedColumns = ["nombre", "codigo", "marca", "precio", "cantidad", "subtotal", "accion"];
+  total: number = 0;
+
+  displayedColumns = [
+    "nombre",
+    "codigo",
+    "marca",
+    "precio",
+    "cantidad",
+    "subtotal",
+    "accion",
+  ];
   dataSource = new MatTableDataSource(this.carrito);
 
   constructor(
@@ -61,7 +73,7 @@ export class VendedorComponent implements OnInit {
       });
     } else {
       console.log(this.todosProductos);
-      this.productos = [...this.todosProductos];
+      this.productos = [];
     }
   }
 
@@ -81,43 +93,55 @@ export class VendedorComponent implements OnInit {
 
   // Editar producto del carrito
   editarProductoOnClick(producto: Producto) {
+    this.editarFlag = true;
     this.capturarCantidadOnClick(producto);
   }
 
   // Agrega la cantidad del producto al carrito
   async agregarCantidad(producto: Producto) {
-    let existe: boolean = false;
-    this.carrito.forEach(element => {
-      if (element.codigo === producto.codigo) {
-        console.log("Existe");
-        element.cantidad! += producto.cantidad!;
+    if(!this.editarFlag) {
+      let existe: boolean = false;
+      this.carrito.forEach((element) => {
+        if (element.codigo === producto.codigo) {
+          console.log("Existe");
+          element.cantidad! += producto.cantidad!;
+          this.dataSource = new MatTableDataSource(this.carrito);
+          this.table.renderRows();
+          this.form.reset();
+          existe = true;
+        }
+      });
+      if (!existe) {
+        console.log("No existe");
+        this.carrito.push({ ...producto });
         this.dataSource = new MatTableDataSource(this.carrito);
         this.table.renderRows();
         this.form.reset();
-        existe = true;
       }
-    });
-    if(!existe) {
-      console.log("No existe");
-      this.carrito.push({...producto});
-      this.dataSource = new MatTableDataSource(this.carrito);
-      this.table.renderRows();
-      this.form.reset();
+    } else {
+      this.carrito.forEach((productoCarrito) => {
+        if(producto.id === productoCarrito.id) {
+          productoCarrito.cantidad = producto.cantidad;
+        }
+      });
     }
+    this.calcularTotal();
+    this.editarFlag = false;
+    this.productos = [];
   }
 
   // Abre el diálogo para capturar la cantidad del producto
   capturarCantidadOnClick(producto: Producto): void {
     const dialogRef = this.dialog.open(IngresarCantidadModalComponent, {
       width: "500px",
-      data: { producto: {...producto} },
+      data: { producto: { ...producto } },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log("The dialog was closed");
       if (!!result) {
         producto.cantidad = result;
-        this.agregarCantidad({...producto});
+        this.agregarCantidad({ ...producto });
       }
     });
   }
@@ -129,5 +153,13 @@ export class VendedorComponent implements OnInit {
     });
     this.dataSource = new MatTableDataSource(this.carrito);
     this.table.renderRows();
+  }
+
+  // Calcula el total de la venta
+  calcularTotal() {
+    this.total = 0;
+    this.carrito.forEach((producto) => {
+      this.total += producto.precio * producto.cantidad!;
+    });
   }
 }

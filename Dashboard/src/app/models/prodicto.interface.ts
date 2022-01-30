@@ -5,4 +5,5 @@ export interface Producto {
     precio: number;
     codigo: string;
     marca: string;
+    cantidad?: number;
 }
