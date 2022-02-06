@@ -38,6 +38,8 @@ import { ModifyProductModalComponent } from './productos/modify-product-modal/mo
 import { VendedorComponent } from './vendedor/vendedor.component';
 import { IngresarCantidadModalComponent } from './vendedor/ingresar-cantidad-modal/ingresar-cantidad-modal.component';
 import { TicketComponent } from './vendedor/ticket/ticket.component';
+import { CambioModalComponent } from './vendedor/cambio-modal/cambio-modal.component';
+import { ConfirmCancelModalComponent } from './vendedor/confirm-cancel-modal/confirm-cancel-modal.component';
 
 @NgModule({
   imports: [
@@ -77,6 +79,8 @@ import { TicketComponent } from './vendedor/ticket/ticket.component';
     VendedorComponent,
     IngresarCantidadModalComponent,
     TicketComponent,
+    CambioModalComponent,
+    ConfirmCancelModalComponent,
   ]
 })
 export class MaterialComponentsModule {}

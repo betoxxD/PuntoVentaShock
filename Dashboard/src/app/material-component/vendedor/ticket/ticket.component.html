@@ -1,15 +1,11 @@
 <h1 mat-dialog-title>Imprimiendo ticket</h1>
 <div mat-dialog-content class="ticket-principal" id="ticket">
     <div class="ticket-contenedor">
-        <div class="logo-contenedor">
-            <h3>SHOCK¡</h3>
-            <h3>CASUAL</h3>
-        </div>
         <div class="informacion-general-contenedor">
             <p>Tianguis la Herradura Local 93</p>
             <p>C.P. 38980 Uriangato, Gto.</p>
-            <p>Shock Diomars</p>
-            <p>445 113 92 68</p>
+            <p><i class="fab fa-facebook"></i> Shock Diomars</p>
+            <p><i class="fab fa-whatsapp"></i> 445 113 92 68</p>
         </div>
         <div class="tabla-productos">
             <table>
@@ -24,15 +20,15 @@
                 <tbody>
                     <tr *ngFor="let producto of carrito">
                         <td>{{producto.cantidad}}</td>
-                        <td>{{producto.nombre}} {{producto.codigo}}</td>
-                        <td>${{producto.precio}}</td>
-                        <td>${{producto.cantidad * producto.precio}}</td>
+                        <td>{{producto.marca}} {{producto.codigo}}</td>
+                        <td>${{(+producto.precio).toLocaleString('en-US', {minimumFractionDigits: 2})}}</td>
+                        <td>${{(producto.cantidad * producto.precio).toLocaleString('en-US', {minimumFractionDigits: 2})}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
                         <th>Total:</th>
-                        <td>${{calcularTotal()}}</td>
+                        <td>${{(+calcularTotal()).toLocaleString('en-US', {minimumFractionDigits: 2})}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -31,13 +31,9 @@ export class TicketComponent implements OnInit {
       printable: "ticket",
       type: "html",
       style: `
-      .ticket-principal {
-        width: 80mm;
-      }
       
       .logo-contenedor {
         text-align: center;
-        font-size: 12px;
       }
       
       .logo-contenedor h3 {
@@ -47,16 +43,14 @@ export class TicketComponent implements OnInit {
       
       .informacion-general-contenedor {
         text-align: center;
-        font-size: 9px;
       }
       
       .informacion-general-contenedor p {
         padding: 0;
-        margin: 4px;
+        margin: 4pt;
       }
       
       .tabla-productos {
-        font-size: 9px;
       }
       
       .tabla-productos table {
@@ -65,12 +59,10 @@ export class TicketComponent implements OnInit {
       }
       
       .nota {
-        font-size: 9px;
         text-align: center;
       }
       
       .fecha-hora {
-        font-size: 9px;
         text-align: center;
       }
       

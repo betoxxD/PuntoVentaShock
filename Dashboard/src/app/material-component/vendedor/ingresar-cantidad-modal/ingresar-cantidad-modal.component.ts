@@ -33,7 +33,9 @@ export class IngresarCantidadModalComponent implements OnInit {
 
   closeWithData(): void {
     if(this.cantidad < 1) {
-      this._snackBar.open('La cantidad debe ser mayor a 0', 'Cerrar');
+      this._snackBar.open('La cantidad debe ser mayor a 0', '', {
+        duration: 2000
+      });
     }else {
       this.dialogRef.close(this.cantidad);
     }

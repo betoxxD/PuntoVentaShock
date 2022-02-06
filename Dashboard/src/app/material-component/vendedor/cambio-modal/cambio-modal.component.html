@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Realizar cobro</h1>
+<div mat-dialog-content>
+    <h3>Total: ${{(+total).toLocaleString('en-US', {minimumFractionDigits: 2})}}</h3>
+    <!-- Nombre -->
+    <mat-form-field>
+        <mat-label>Pago</mat-label>
+        <!--  -->
+        <input type="number" matInput placeholder="Pago" [(ngModel)]="pago" cdkFocusInitial (keyup.enter)="closeWithData()" (focus)="$event.target.select()">
+    </mat-form-field>
+    <h3>Cambio: ${{(pago - total).toLocaleString('en-US', {minimumFractionDigits: 2})}}</h3>
+</div>
+<div class="mat-dialog-actions">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button (click)="closeWithData()">Aceptar</button>
+</div>

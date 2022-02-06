@@ -10,12 +10,12 @@
                 <form [formGroup]="form">
                     <mat-form-field>
                         <mat-label>Buscar</mat-label>
-                        <input matInput placeholder="Buscar (F1)" list="search-list" [matAutocomplete]="auto"
+                        <input matInput placeholder="Buscar" list="search-list" [matAutocomplete]="auto"
                             (input)="filtrarProductosOnInput($event)" (keyup.enter)="agregarProductoOnChange()"
-                            formControlName="buscar">
+                            formControlName="buscar" cdkFocusInitial>
                         <mat-autocomplete (optionSelected)="agregarProductoOnChange()" autoActiveFirstOption #auto="matAutocomplete">
                             <mat-option *ngFor="let producto of productos" [value]="producto.codigo">
-                                ({{producto.codigo}}) {{ producto.nombre }} - ${{ producto.precio }}
+                                ({{producto.codigo}}) {{ producto.nombre }} - ${{ (+producto.precio).toLocaleString('en-US', {minimumFractionDigits: 2})  }}
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
@@ -40,7 +40,7 @@
                     <!-- Subtotal Column -->
                     <ng-container matColumnDef="subtotal">
                         <mat-header-cell *matHeaderCellDef> subtotal </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> ${{element.cantidad * element.precio}} </mat-cell>
+                        <mat-cell *matCellDef="let element"> ${{(element.cantidad * element.precio).toLocaleString('en-US', {minimumFractionDigits: 2})}} </mat-cell>
                     </ng-container>
 
                     <!-- Cantidad Column -->
@@ -52,7 +52,7 @@
                     <!-- Precio Column -->
                     <ng-container matColumnDef="precio">
                         <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> ${{element.precio}} </mat-cell>
+                        <mat-cell *matCellDef="let element"> ${{(+element.precio).toLocaleString('en-US', {minimumFractionDigits: 2})}} </mat-cell>
                     </ng-container>
 
                     <!-- Código Column -->
@@ -87,13 +87,13 @@
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <h1>$ {{total}}</h1>
+                <h1>$ {{(total).toLocaleString('en-US', {minimumFractionDigits: 2})}}</h1>
                 <mat-grid-list cols="2">
                     <mat-grid-tile>
-                        <button mat-raised-button color="primary" (click)="imprimirCarrito()">Cobrar (F2)</button>
+                        <button mat-raised-button color="primary" (click)="calcularCambioOnClick()">Cobrar (F1)</button>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <button mat-raised-button color="warn">Cancelar</button>
+                        <button mat-raised-button color="warn" (click)="cancelarProductoModal()">Cancelar</button>
                     </mat-grid-tile>
                 </mat-grid-list>
             </mat-card-content>

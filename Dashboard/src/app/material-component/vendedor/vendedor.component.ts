@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatTable } from "@angular/material/table";
 import { Producto } from "src/app/models/producto.interface";
 import { ProductosService } from "src/app/services/productos/productos.service";
@@ -6,7 +6,11 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { IngresarCantidadModalComponent } from "./ingresar-cantidad-modal/ingresar-cantidad-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import * as printJS from "print-js";
-import { TicketComponent } from './ticket/ticket.component';
+import { TicketComponent } from "./ticket/ticket.component";
+import { CambioModalComponent } from "./cambio-modal/cambio-modal.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatInput } from "@angular/material/input";
+import { ConfirmCancelModalComponent } from './confirm-cancel-modal/confirm-cancel-modal.component';
 
 @Component({
   selector: "app-vendedor",
@@ -15,6 +19,16 @@ import { TicketComponent } from './ticket/ticket.component';
 })
 export class VendedorComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
+  @ViewChild(MatInput) buscar!: HTMLInputElement;
+
+  // @HostListener("document:keydown.escape", ["$event"]) onKeydownHandler(
+  @HostListener("document:keydown", ["$event"]) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    if (event.key === "F1") {
+      this.calcularCambioOnClick();
+    }
+  }
 
   editarFlag = false;
 
@@ -40,7 +54,8 @@ export class VendedorComponent implements OnInit {
 
   constructor(
     private _productoService: ProductosService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackbar: MatSnackBar
   ) {
     this.form = new FormGroup({
       buscar: new FormControl(""),
@@ -51,11 +66,17 @@ export class VendedorComponent implements OnInit {
     this.obtenerProductos();
   }
 
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.buscar.focus();
+  }
+
   // Obtiene todos los productos de la base de datos
   obtenerProductos() {
     this._productoService.get().subscribe(
       (res: any) => {
-        this.productos = res.lista;
+        // this.productos = res.lista;
         console.log(this.productos);
         this.todosProductos = res.lista;
       },
@@ -71,7 +92,7 @@ export class VendedorComponent implements OnInit {
     valor = valor.trim();
     if (!!valor && valor.length > 0) {
       this.productos = this.todosProductos.filter((producto: Producto) => {
-        return producto.nombre.toLowerCase().includes(valor.toLowerCase());
+        return producto.codigo.toLowerCase().includes(valor.toLowerCase());
       });
     } else {
       console.log(this.todosProductos);
@@ -101,7 +122,7 @@ export class VendedorComponent implements OnInit {
 
   // Agrega la cantidad del producto al carrito
   async agregarCantidad(producto: Producto) {
-    if(!this.editarFlag) {
+    if (!this.editarFlag) {
       let existe: boolean = false;
       this.carrito.forEach((element) => {
         if (element.codigo === producto.codigo) {
@@ -122,7 +143,7 @@ export class VendedorComponent implements OnInit {
       }
     } else {
       this.carrito.forEach((productoCarrito) => {
-        if(producto.id === productoCarrito.id) {
+        if (producto.id === productoCarrito.id) {
           productoCarrito.cantidad = producto.cantidad;
         }
       });
@@ -148,6 +169,27 @@ export class VendedorComponent implements OnInit {
     });
   }
 
+  // Abre el modal para calcular el cambio
+  calcularCambioOnClick(): void {
+    if (this.carrito.length > 0) {
+      const dialogRef = this.dialog.open(CambioModalComponent, {
+        width: "500px",
+        data: { total: this.total },
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log("The dialog was closed");
+        if (!!result) {
+          this.imprimirCarrito();
+        }
+      });
+    } else {
+      this._snackbar.open("No hay productos en el carrito", "", {
+        duration: 2000,
+      });
+    }
+  }
+
   // Elimina un producto del carrito
   eliminarProducto(producto: Producto) {
     this.carrito = this.carrito.filter((productoCarrito: Producto) => {
@@ -169,14 +211,33 @@ export class VendedorComponent implements OnInit {
   imprimirCarrito() {
     const dialogRef = this.dialog.open(TicketComponent, {
       width: "500px",
-      data: { carrito:  [...this.carrito]  },
+      data: { carrito: [...this.carrito] },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log("The dialog was closed");
-      if (!!result) {
-        
+      this.limpiarCarrito();
+    });
+  }
+
+  // Solicita la confirmación para la cancelación del producto
+  cancelarProductoModal() {
+    const dialogRef = this.dialog.open(ConfirmCancelModalComponent, {
+      width: "500px"
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(!!result) {
+        this.limpiarCarrito();
       }
     });
+  }
+
+  // Limpia la información para una nueva venta
+  limpiarCarrito() {
+    this.carrito = [];
+    this.dataSource = new MatTableDataSource(this.carrito);
+    this.table.renderRows();
+    this.total = 0;
   }
 }
