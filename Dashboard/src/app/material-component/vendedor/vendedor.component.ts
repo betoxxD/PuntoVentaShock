@@ -40,6 +40,7 @@ export class VendedorComponent implements OnInit {
   carrito: Producto[] = [];
 
   total: number = 0;
+  cantPrendas: number = 0;
 
   displayedColumns = [
     "nombre",
@@ -149,6 +150,7 @@ export class VendedorComponent implements OnInit {
       });
     }
     this.calcularTotal();
+    this.contarCantidad();
     this.editarFlag = false;
     this.productos = [];
   }
@@ -197,6 +199,8 @@ export class VendedorComponent implements OnInit {
     });
     this.dataSource = new MatTableDataSource(this.carrito);
     this.table.renderRows();
+    this.calcularTotal();
+    this.contarCantidad();
   }
 
   // Calcula el total de la venta
@@ -204,6 +208,14 @@ export class VendedorComponent implements OnInit {
     this.total = 0;
     this.carrito.forEach((producto) => {
       this.total += producto.precio * producto.cantidad!;
+    });
+  }
+
+  // Cuenta el número de productos en el carrito
+  contarCantidad() {
+    this.cantPrendas = 0;
+    this.carrito.forEach((producto) => {
+      this.cantPrendas += producto.cantidad!;
     });
   }
 

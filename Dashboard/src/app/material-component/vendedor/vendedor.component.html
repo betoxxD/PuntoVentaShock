@@ -83,11 +83,12 @@
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
-                    Total
+                    Detalle
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <h1>$ {{(total).toLocaleString('en-US', {minimumFractionDigits: 2})}}</h1>
+                <h3>Prendas: {{cantPrendas}}</h3>
+                <h2>Total: $ {{(total).toLocaleString('en-US', {minimumFractionDigits: 2})}}</h2>
                 <mat-grid-list cols="2">
                     <mat-grid-tile>
                         <button mat-raised-button color="primary" (click)="calcularCambioOnClick()">Cobrar (F1)</button>
