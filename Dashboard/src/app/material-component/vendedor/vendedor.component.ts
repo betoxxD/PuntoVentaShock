@@ -25,7 +25,7 @@ export class VendedorComponent implements OnInit {
   @HostListener("document:keydown", ["$event"]) onKeydownHandler(
     event: KeyboardEvent
   ) {
-    if (event.key === "F1") {
+    if (event.key === "F2") {
       this.calcularCambioOnClick();
     }
   }
@@ -43,9 +43,9 @@ export class VendedorComponent implements OnInit {
   cantPrendas: number = 0;
 
   displayedColumns = [
-    "nombre",
     "codigo",
     "marca",
+    "descripcion",
     "precio",
     "cantidad",
     "subtotal",

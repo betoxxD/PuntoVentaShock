@@ -4,20 +4,6 @@
         <form [formGroup]="formInsertarProducto">
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <!-- Nombre -->
-                    <mat-form-field>
-                        <mat-label>Nombre</mat-label>
-                        <input type="text" matInput placeholder="Nombre" formControlName="nombre">
-                    </mat-form-field>
-                </div>
-                <div class="col-12 col-md-6">
-                    <!-- Precio -->
-                    <mat-form-field>
-                        <mat-label>Precio</mat-label>
-                        <input type="number" matInput placeholder="Precio" formControlName="precio">
-                    </mat-form-field>
-                </div>
-                <div class="col-12 col-md-6">
                     <!-- Código -->
                     <mat-form-field>
                         <mat-label>Código</mat-label>
@@ -29,6 +15,13 @@
                     <mat-form-field>
                         <mat-label>Marca</mat-label>
                         <input type="text" matInput placeholder="Marca" formControlName="marca">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- Precio -->
+                    <mat-form-field>
+                        <mat-label>Precio</mat-label>
+                        <input type="number" matInput placeholder="Precio" formControlName="precio">
                     </mat-form-field>
                 </div>
                 <div class="col-12">
@@ -52,12 +45,6 @@
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
         <mat-table #table [dataSource]="dataSource" matSort>
-
-            <!-- Posición Column -->
-            <ng-container matColumnDef="nombre">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
-            </ng-container>
 
             <!-- Descripición Column -->
             <ng-container matColumnDef="descripcion">
@@ -88,7 +75,8 @@
                 <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button mat-icon-button color="basic">
-                        <mat-icon aria-label="Example icon-button with a heart icon" (click)="editarProductoOnClick(element)">edit</mat-icon>
+                        <mat-icon aria-label="Example icon-button with a heart icon"
+                            (click)="editarProductoOnClick(element)">edit</mat-icon>
                     </button>
                     <button mat-icon-button color="basic">
                         <mat-icon aria-label="Example icon-button with a heart icon"

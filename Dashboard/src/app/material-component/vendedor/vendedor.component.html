@@ -15,7 +15,7 @@
                             formControlName="buscar" cdkFocusInitial>
                         <mat-autocomplete (optionSelected)="agregarProductoOnChange()" autoActiveFirstOption #auto="matAutocomplete">
                             <mat-option *ngFor="let producto of productos" [value]="producto.codigo">
-                                ({{producto.codigo}}) {{ producto.nombre }} - ${{ (+producto.precio).toLocaleString('en-US', {minimumFractionDigits: 2})  }}
+                                ({{producto.marca}} {{ producto.codigo }}) {{producto.descripcion}} - ${{ (+producto.precio).toLocaleString('en-US', {minimumFractionDigits: 2})  }}
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
@@ -68,9 +68,9 @@
                     </ng-container>
 
                     <!-- Posición Column -->
-                    <ng-container matColumnDef="nombre">
-                        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+                    <ng-container matColumnDef="descripcion">
+                        <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.descripcion}}</mat-cell>
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -91,7 +91,7 @@
                 <h2>Total: $ {{(total).toLocaleString('en-US', {minimumFractionDigits: 2})}}</h2>
                 <mat-grid-list cols="2">
                     <mat-grid-tile>
-                        <button mat-raised-button color="primary" (click)="calcularCambioOnClick()">Cobrar (F1)</button>
+                        <button mat-raised-button color="primary" (click)="calcularCambioOnClick()">Cobrar (F2)</button>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <button mat-raised-button color="warn" (click)="cancelarProductoModal()">Cancelar</button>

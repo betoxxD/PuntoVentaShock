@@ -25,7 +25,7 @@ export class ProductosComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumns = ['nombre', 'descripcion', 'precio', 'codigo', 'marca', 'id'];
+  displayedColumns = ['descripcion', 'precio', 'codigo', 'marca', 'id'];
   dataSource = new MatTableDataSource(this.productos);
 
   /**
@@ -43,7 +43,6 @@ export class ProductosComponent implements OnInit {
   ) {
     this.formInsertarProducto = new FormGroup(
       {
-        nombre: new FormControl(null, Validators.required),
         descripcion: new FormControl(null, Validators.required),
         precio: new FormControl(null, Validators.required),
         codigo: new FormControl(null, Validators.required),

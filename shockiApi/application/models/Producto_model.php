@@ -5,7 +5,6 @@ defined('BASEPATH') or exit('No direct scrips access allowed');
 class Producto_model extends CI_Model
 {
 	public $id;
-	public $nombre;
 	public $descripcion;
 	public $precio;
 	public $codigo;
