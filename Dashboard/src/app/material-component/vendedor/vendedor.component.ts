@@ -11,6 +11,7 @@ import { CambioModalComponent } from "./cambio-modal/cambio-modal.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatInput } from "@angular/material/input";
 import { ConfirmCancelModalComponent } from "./confirm-cancel-modal/confirm-cancel-modal.component";
+import { AgregarProductoModalComponent } from './agregar-producto-modal/agregar-producto-modal.component';
 
 @Component({
   selector: "app-vendedor",
@@ -243,6 +244,20 @@ export class VendedorComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (!!result) {
         this.limpiarCarrito();
+      }
+    });
+  }
+
+  // Abre el diálogo para editar un producto
+  agregarProductoNuevoOnClick(): void {
+    const dialogRef = this.dialog.open(AgregarProductoModalComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if(!!result) {
+        this.obtenerProductos();
       }
     });
   }
