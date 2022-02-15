@@ -38,6 +38,18 @@ class Producto_model extends CI_Model
 
 	public function insert()
 	{
+		$this->db->where('codigo', $this->codigo);
+		$query = $this->db->get('producto');
+		$result = $query->result();
+		if (count($result) > 0) {
+			$respuesta = array(
+				'err' => TRUE,
+				'mensaje' => 'Este producto ya se encuentra registrado.',
+				'error' => $this->db->error(),
+				'err_code' => 'HTTP_INTERNAL_SERVER_ERROR'
+			);
+			return $respuesta;
+		}
 		$hecho = $this->db->insert('producto', $this);
 		if ($hecho) {
 			$respuesta = array(
@@ -49,7 +61,7 @@ class Producto_model extends CI_Model
 		} else {
 			$respuesta = array(
 				'err' => TRUE,
-				'mensaje' => 'Error al insertar.',
+				'mensaje' => 'Error al insertar, inténtalo más tarde.',
 				'error' => $this->db->error(),
 				'err_code' => 'HTTP_INTERNAL_SERVER_ERROR'
 			);
@@ -59,6 +71,19 @@ class Producto_model extends CI_Model
 
 	public function update()
 	{
+		$this->db->where('codigo', $this->codigo);
+		$this->db->where('id !=', $this->id);
+		$query = $this->db->get('producto');
+		$result = $query->result();
+		if (count($result) > 0) {
+			$respuesta = array(
+				'err' => TRUE,
+				'mensaje' => 'Este código ya se encuentra registrado.',
+				'error' => $this->db->error(),
+				'err_code' => 'HTTP_INTERNAL_SERVER_ERROR'
+			);
+			return $respuesta;
+		}
 		$this->db->where('id', $this->id);
 		$hecho = $this->db->update('producto', $this);
 

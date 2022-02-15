@@ -8,6 +8,7 @@ import { Producto } from 'src/app/models/producto.interface';
 import { ProductosService } from 'src/app/services/productos/productos.service';
 import Swal from 'sweetalert2';
 import { ModifyProductModalComponent } from './modify-product-modal/modify-product-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-productos',
@@ -39,6 +40,7 @@ export class ProductosComponent implements OnInit {
 
   constructor(
     private productosService: ProductosService,
+    public toast: MatSnackBar,
     public dialog: MatDialog
   ) {
     this.formInsertarProducto = new FormGroup(
@@ -78,19 +80,11 @@ export class ProductosComponent implements OnInit {
         (producto: any) => {
           this.getProductos();
           this.formInsertarProducto.reset();
-          Swal.fire({
-            title: 'Producto agregado',
-            text: 'El producto se registró correctamente',
-            icon: 'success'
-          });
+          this.showToast('Producto agregado');
         },
         (error) => {
           console.log(error);
-          Swal.fire({
-            title: 'Ha ocurrido un error',
-            text: 'Vuelve a intentarlo más tarde',
-            icon: 'error'
-          });
+          this.showToast(error.error.mensaje);
         }
       );
     } else {
@@ -112,21 +106,11 @@ export class ProductosComponent implements OnInit {
         this.productosService.delete(id).subscribe(
           (producto: any) => {
             this.getProductos();
-            Swal.fire({
-              title: 'Producto elminado',
-              text: 'El producto se eliminó correctamente',
-              icon: 'success'
-            });
+            this.showToast('Producto eliminado');
           },
           (error) => {
             console.log(error);
-            Swal.fire(
-              {
-                title: 'Ocurrió un error',
-                text: 'Vuelve a intentarlo más tarde',
-                icon: 'error'
-            }
-            );
+            this.showToast('Ha ocurrido un error, vueve a intentarlo más tarde');
           }
         );
       }
@@ -138,19 +122,11 @@ export class ProductosComponent implements OnInit {
       (res) => {
         this.getProductos();
         this.productoEdit = undefined;
-        Swal.fire({
-          title: 'Producto modificado',
-          text: 'El producto se modificó correctamente',
-          icon: 'success'
-        });
+        this.showToast('Producto modificado');
       },
       (error) => {
         console.log(error);
-        Swal.fire({
-          title: 'Ocurrió un error',
-          text: 'Vuelve a intentarlo más tarde',
-          icon: 'error'
-        });
+        this.showToast(error.error.mensaje);
       }
     );
   }
@@ -176,6 +152,14 @@ export class ProductosComponent implements OnInit {
       if(!!result) {
         this.modificarProducto({...result});
       }
+    });
+  }
+
+  // Muestra un texto recibido en un toast
+  showToast(text: string): void {
+    this.toast.open(text, '', {
+      duration: 2000,
+      panelClass: ['snackbar-color']
     });
   }
 
