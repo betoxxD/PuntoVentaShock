@@ -3,20 +3,6 @@
     <form [formGroup]="formInsertarProducto">
         <div class="row">
             <div class="col-12 col-md-6">
-                <!-- Nombre -->
-                <mat-form-field>
-                    <mat-label>Nombre</mat-label>
-                    <input type="text" matInput placeholder="Nombre" formControlName="nombre">
-                </mat-form-field>
-            </div>
-            <div class="col-12 col-md-6">
-                <!-- Precio -->
-                <mat-form-field>
-                    <mat-label>Precio</mat-label>
-                    <input type="number" matInput placeholder="Precio" formControlName="precio">
-                </mat-form-field>
-            </div>
-            <div class="col-12 col-md-6">
                 <!-- Código -->
                 <mat-form-field>
                     <mat-label>Código</mat-label>
@@ -28,6 +14,13 @@
                 <mat-form-field>
                     <mat-label>Marca</mat-label>
                     <input type="text" matInput placeholder="Marca" formControlName="marca">
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <!-- Precio -->
+                <mat-form-field>
+                    <mat-label>Precio</mat-label>
+                    <input type="number" matInput placeholder="Precio" formControlName="precio">
                 </mat-form-field>
             </div>
             <div class="col-12">

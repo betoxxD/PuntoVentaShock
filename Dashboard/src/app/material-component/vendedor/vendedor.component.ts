@@ -251,5 +251,6 @@ export class VendedorComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.carrito);
     this.table.renderRows();
     this.total = 0;
+    this.cantPrendas = 0;
   }
 }

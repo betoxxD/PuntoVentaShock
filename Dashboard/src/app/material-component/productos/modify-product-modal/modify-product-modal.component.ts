@@ -18,7 +18,6 @@ export class ModifyProductModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.formInsertarProducto = new FormGroup({
-      nombre: new FormControl(null, Validators.required),
       descripcion: new FormControl(null, Validators.required),
       precio: new FormControl(null, Validators.required),
       codigo: new FormControl(null, Validators.required),

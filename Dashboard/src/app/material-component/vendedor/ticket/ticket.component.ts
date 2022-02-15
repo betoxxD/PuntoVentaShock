@@ -84,6 +84,15 @@ export class TicketComponent implements OnInit {
     return total;
   }
 
+  // Cuenta el número de prendas en el carrito
+  contarPrendas(): number {
+    let total = 0;
+    this.carrito.forEach((producto) => {
+      total += producto.cantidad!;
+    });
+    return total;
+  }
+
   // Obtiene la fecha actual
   obtenerFechaActual(): string {
     const fecha = new Date();
