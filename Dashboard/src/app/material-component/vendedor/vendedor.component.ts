@@ -10,7 +10,7 @@ import { TicketComponent } from "./ticket/ticket.component";
 import { CambioModalComponent } from "./cambio-modal/cambio-modal.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatInput } from "@angular/material/input";
-import { ConfirmCancelModalComponent } from './confirm-cancel-modal/confirm-cancel-modal.component';
+import { ConfirmCancelModalComponent } from "./confirm-cancel-modal/confirm-cancel-modal.component";
 
 @Component({
   selector: "app-vendedor",
@@ -26,7 +26,7 @@ export class VendedorComponent implements OnInit {
     event: KeyboardEvent
   ) {
     if (event.key === "F2") {
-      this.calcularCambioOnClick();
+      this.imprimirCarritoOnClick();
     }
   }
 
@@ -172,24 +172,18 @@ export class VendedorComponent implements OnInit {
   }
 
   // Abre el modal para calcular el cambio
-  calcularCambioOnClick(): void {
-    if (this.carrito.length > 0) {
-      const dialogRef = this.dialog.open(CambioModalComponent, {
-        width: "500px",
-        data: { total: this.total },
-      });
+  calcularCambio(): void {
+    const dialogRef = this.dialog.open(CambioModalComponent, {
+      width: "500px",
+      data: { total: this.total },
+    });
 
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log("The dialog was closed");
-        if (!!result) {
-          this.imprimirCarrito();
-        }
-      });
-    } else {
-      this._snackbar.open("No hay productos en el carrito", "", {
-        duration: 2000,
-      });
-    }
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+      if (!!result) {
+        this.limpiarCarrito();
+      }
+    });
   }
 
   // Elimina un producto del carrito
@@ -220,26 +214,34 @@ export class VendedorComponent implements OnInit {
   }
 
   // Imprime el carrito
-  imprimirCarrito() {
-    const dialogRef = this.dialog.open(TicketComponent, {
-      width: "500px",
-      data: { carrito: [...this.carrito] },
-    });
+  imprimirCarritoOnClick() {
+    if (this.carrito.length > 0) {
+      const dialogRef = this.dialog.open(TicketComponent, {
+        width: "500px",
+        data: { carrito: [...this.carrito] },
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log("The dialog was closed");
-      this.limpiarCarrito();
-    });
+      dialogRef.afterClosed().subscribe((result) => {
+        if(!!result) {
+          this.calcularCambio();
+        }
+        console.log("The dialog was closed");
+      });
+    } else {
+      this._snackbar.open("No hay productos en el carrito", "", {
+        duration: 2000,
+      });
+    }
   }
 
   // Solicita la confirmación para la cancelación del producto
   cancelarProductoModal() {
     const dialogRef = this.dialog.open(ConfirmCancelModalComponent, {
-      width: "500px"
+      width: "500px",
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if(!!result) {
+      if (!!result) {
         this.limpiarCarrito();
       }
     });

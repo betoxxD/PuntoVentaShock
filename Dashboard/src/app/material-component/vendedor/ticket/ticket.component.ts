@@ -109,4 +109,9 @@ export class TicketComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  // Cierra el diálogo retornando un valor
+  onClick(): void {
+    this.dialogRef.close(true);
+  }
 }
