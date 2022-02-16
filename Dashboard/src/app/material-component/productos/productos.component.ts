@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ControlContainer, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,6 +9,7 @@ import { ProductosService } from 'src/app/services/productos/productos.service';
 import Swal from 'sweetalert2';
 import { ModifyProductModalComponent } from './modify-product-modal/modify-product-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-productos',
@@ -29,6 +30,9 @@ export class ProductosComponent implements OnInit {
   displayedColumns = ['descripcion', 'precio', 'codigo', 'marca', 'id'];
   dataSource = new MatTableDataSource(this.productos);
 
+  // Flags
+  isRegistered: boolean = false;
+
   /**
    * Set the paginator after the view init since this component will
    * be able to query its view for the initialized paginator.
@@ -47,7 +51,7 @@ export class ProductosComponent implements OnInit {
       {
         descripcion: new FormControl(null, Validators.required),
         precio: new FormControl(null, Validators.required),
-        codigo: new FormControl(null, Validators.required),
+        codigo: new FormControl(null, [Validators.required]),
         marca: new FormControl(null, Validators.required),
       }
     );
@@ -143,7 +147,8 @@ export class ProductosComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifyProductModalComponent, {
       width: '500px',
       data: {
-        producto: {...this.productoEdit}
+        producto: {...this.productoEdit},
+        productos: [...this.productos]
       }
     });
 
@@ -161,6 +166,20 @@ export class ProductosComponent implements OnInit {
       duration: 2000,
       panelClass: ['snackbar-color']
     });
+  }
+
+  // Verifica si el código del producto ya se encuentra registrado
+  codigoExiste(): void {
+    const codigo: string = this.formInsertarProducto.value.codigo;
+    if(this.formInsertarProducto.controls['codigo'].valid) {
+      console.log(!this.productos.some(producto => producto.codigo === codigo));
+      if(this.productos.some(producto => producto.codigo.toLowerCase() === codigo.toLowerCase())) {
+        this.formInsertarProducto.controls['codigo'].setErrors({'existingCode': true});
+        console.log(this.formInsertarProducto.controls['codigo'].errors);
+      } else {
+        this.formInsertarProducto.controls['codigo'].setErrors(null);
+      }
+    }
   }
 
 }

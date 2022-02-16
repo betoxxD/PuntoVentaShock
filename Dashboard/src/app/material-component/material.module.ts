@@ -21,6 +21,7 @@ import { TicketComponent } from './vendedor/ticket/ticket.component';
 import { CambioModalComponent } from './vendedor/cambio-modal/cambio-modal.component';
 import { ConfirmCancelModalComponent } from './vendedor/confirm-cancel-modal/confirm-cancel-modal.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { AgregarProductoModalComponent } from './vendedor/agregar-producto-modal/agregar-producto-modal.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { VentasComponent } from './ventas/ventas.component';
     CambioModalComponent,
     ConfirmCancelModalComponent,
     VentasComponent,
+    AgregarProductoModalComponent,
   ]
 })
 export class MaterialComponentsModule {}

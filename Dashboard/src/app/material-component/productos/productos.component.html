@@ -7,7 +7,10 @@
                     <!-- Código -->
                     <mat-form-field>
                         <mat-label>Código</mat-label>
-                        <input type="text" matInput placeholder="Código" formControlName="codigo">
+                        <input type="text" matInput placeholder="Código" formControlName="codigo" (keydown)="codigoExiste()">
+                        <mat-error *ngIf="formInsertarProducto.controls['codigo'].errors && formInsertarProducto.controls['codigo'].errors.existingCode" >
+                            Código ya registrado
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">

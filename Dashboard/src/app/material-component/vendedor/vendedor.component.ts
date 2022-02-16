@@ -252,6 +252,9 @@ export class VendedorComponent implements OnInit {
   agregarProductoNuevoOnClick(): void {
     const dialogRef = this.dialog.open(AgregarProductoModalComponent, {
       width: '500px',
+      data: {
+        productos: [...this.productos]
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -14,8 +14,11 @@ export class AgregarProductoModalComponent implements OnInit {
   formInsertarProducto: FormGroup;
   producto?: Producto;
 
+  productos: Producto[] = [];
+
   constructor(
     public dialogRef: MatDialogRef<AgregarProductoModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public productosService: ProductosService,
     public toast: MatSnackBar
   ) {
@@ -25,6 +28,7 @@ export class AgregarProductoModalComponent implements OnInit {
       codigo: new FormControl(null, Validators.required),
       marca: new FormControl(null, Validators.required),
     });
+    this.productos = this.data.productos;
   }
 
   ngOnInit(): void {}
@@ -60,5 +64,19 @@ export class AgregarProductoModalComponent implements OnInit {
       duration: 2000,
       panelClass: ["snackbar-success"],
     });
+  }
+
+  // Verifica si el código del producto ya se encuentra registrado
+  codigoExiste(): void {
+    const codigo: string = this.formInsertarProducto.value.codigo;
+    if(this.formInsertarProducto.controls['codigo'].valid) {
+      console.log(!this.productos.some(producto => producto.codigo === codigo));
+      if(this.productos.some(producto => producto.codigo.toLowerCase() === codigo.toLowerCase())) {
+        this.formInsertarProducto.controls['codigo'].setErrors({'existingCode': true});
+        console.log(this.formInsertarProducto.controls['codigo'].errors);
+      } else {
+        this.formInsertarProducto.controls['codigo'].setErrors(null);
+      }
+    }
   }
 }

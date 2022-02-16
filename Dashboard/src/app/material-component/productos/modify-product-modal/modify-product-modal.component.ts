@@ -12,6 +12,7 @@ export class ModifyProductModalComponent implements OnInit {
 
   formInsertarProducto: FormGroup;
   producto?: Producto;
+  productos: Producto[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<ModifyProductModalComponent>,
@@ -27,11 +28,25 @@ export class ModifyProductModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.producto = this.data.producto;
+    this.productos = this.data.productos;
     this.formInsertarProducto.patchValue({...this.producto});
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  // Verifica si el código del producto ya se encuentra registrado
+  codigoExiste(): void {
+    const codigo: string = this.formInsertarProducto.value.codigo;
+    if(this.formInsertarProducto.controls['codigo'].valid) {
+      if(this.productos.some(producto => producto.codigo.toLowerCase() === codigo.toLowerCase() && producto.id !== this.producto?.id)) {
+        this.formInsertarProducto.controls['codigo'].setErrors({'existingCode': true});
+        console.log(this.formInsertarProducto.controls['codigo'].errors);
+      } else {
+        this.formInsertarProducto.controls['codigo'].setErrors(null);
+      }
+    }
   }
 
 }

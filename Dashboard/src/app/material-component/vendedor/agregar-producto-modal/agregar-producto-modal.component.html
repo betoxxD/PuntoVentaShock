@@ -1,29 +1,32 @@
 <h1 mat-dialog-title>Modificar producto</h1>
 <div mat-dialog-content>
     <form [formGroup]="formInsertarProducto">
-        <div class="row">
-            <div class="col-12 col-md-6">
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
                 <!-- Código -->
                 <mat-form-field>
                     <mat-label>Código</mat-label>
-                    <input type="text" matInput placeholder="Código" formControlName="codigo">
+                    <input type="text" matInput placeholder="Código" formControlName="codigo" (keydown)="codigoExiste()">
+                    <mat-error *ngIf="!!formInsertarProducto.controls['codigo'].errors && !!formInsertarProducto.controls['codigo'].errors.existingCode" >
+                        Código ya registrado
+                    </mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-12 col-md-6">
+            <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
                 <!-- Código -->
                 <mat-form-field>
                     <mat-label>Marca</mat-label>
                     <input type="text" matInput placeholder="Marca" formControlName="marca">
                 </mat-form-field>
             </div>
-            <div class="col-12 col-md-6">
+            <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
                 <!-- Precio -->
                 <mat-form-field>
                     <mat-label>Precio</mat-label>
                     <input type="number" matInput placeholder="Precio" formControlName="precio">
                 </mat-form-field>
             </div>
-            <div class="col-12">
+            <div fxFlex="100">
                 <!-- Nombre -->
                 <mat-form-field>
                     <mat-label>Descripción</mat-label>
