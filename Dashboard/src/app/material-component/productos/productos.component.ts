@@ -182,4 +182,9 @@ export class ProductosComponent implements OnInit {
     }
   }
 
+  // Limpia el formulario
+  limpiarFormulario() {
+    this.formInsertarProducto.reset();
+  }
+
 }
