@@ -5,13 +5,12 @@ import { ProductosService } from "src/app/services/productos/productos.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { IngresarCantidadModalComponent } from "./ingresar-cantidad-modal/ingresar-cantidad-modal.component";
 import { MatDialog } from "@angular/material/dialog";
-import * as printJS from "print-js";
 import { TicketComponent } from "./ticket/ticket.component";
 import { CambioModalComponent } from "./cambio-modal/cambio-modal.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatInput } from "@angular/material/input";
 import { ConfirmCancelModalComponent } from "./confirm-cancel-modal/confirm-cancel-modal.component";
-import { AgregarProductoModalComponent } from './agregar-producto-modal/agregar-producto-modal.component';
+import { AgregarProductoModalComponent } from "./agregar-producto-modal/agregar-producto-modal.component";
 
 @Component({
   selector: "app-vendedor",
@@ -22,12 +21,36 @@ export class VendedorComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatInput) buscar!: HTMLInputElement;
 
-  // @HostListener("document:keydown.escape", ["$event"]) onKeydownHandler(
   @HostListener("document:keydown", ["$event"]) onKeydownHandler(
     event: KeyboardEvent
   ) {
-    if (event.key === "F2") {
+    let functionKeys: string[] = new Array(
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "F11"
+    );
+    if (functionKeys.indexOf(event.key) > -1) {
+      event.preventDefault();
+    }
+    if (event.key === "F3") {
       this.imprimirCarritoOnClick();
+    }
+    if (event.key === "F2") {
+      this.buscar.focus();
+    }
+    if (event.key === "F4") {
+      this.agregarProductoNuevoOnClick();
+    }
+    if (event.key === "F6") {
+      this.cancelarProductoModal();
     }
   }
 
@@ -223,7 +246,10 @@ export class VendedorComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((result) => {
-        if(!!result) {
+        console.log(result);
+        if (!!result && result.printTicket) {
+          this.imprimirCarritoOnClick();
+        } else if (!!result) {
           this.calcularCambio();
         }
         console.log("The dialog was closed");
@@ -251,15 +277,15 @@ export class VendedorComponent implements OnInit {
   // Abre el diálogo para editar un producto
   agregarProductoNuevoOnClick(): void {
     const dialogRef = this.dialog.open(AgregarProductoModalComponent, {
-      width: '500px',
+      width: "500px",
       data: {
-        productos: [...this.productos]
-      }
+        productos: [...this.todosProductos],
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if(!!result) {
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log("The dialog was closed");
+      if (!!result) {
         this.obtenerProductos();
       }
     });

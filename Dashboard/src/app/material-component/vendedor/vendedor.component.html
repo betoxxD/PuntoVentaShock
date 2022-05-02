@@ -1,104 +1,149 @@
 <div fxLayout="row wrap">
-    <div fxFlex.gt-lg="70" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    Carrito
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <form [formGroup]="form">
-                    <mat-form-field>
-                        <mat-label>Buscar</mat-label>
-                        <input matInput placeholder="Buscar" list="search-list" [matAutocomplete]="auto"
-                            (input)="filtrarProductosOnInput($event)" (keyup.enter)="agregarProductoOnChange()"
-                            formControlName="buscar" cdkFocusInitial>
-                        <mat-autocomplete (optionSelected)="agregarProductoOnChange()" autoActiveFirstOption #auto="matAutocomplete">
-                            <mat-option *ngFor="let producto of productos" [value]="producto.codigo">
-                                ({{producto.marca}} {{ producto.codigo }}) {{producto.descripcion}} - ${{ (+producto.precio).toLocaleString('en-US', {minimumFractionDigits: 2})  }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </form>
-                <mat-table #table [dataSource]="dataSource">
+  <div fxFlex.gt-lg="70" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Carrito </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form">
+          <mat-form-field>
+            <mat-label>Buscar (F2)</mat-label>
+            <input
+              matInput
+              placeholder="Buscar"
+              list="search-list"
+              [matAutocomplete]="auto"
+              (input)="filtrarProductosOnInput($event)"
+              (keyup.enter)="agregarProductoOnChange()"
+              formControlName="buscar"
+              cdkFocusInitial
+            />
+            <mat-autocomplete
+              (optionSelected)="agregarProductoOnChange()"
+              autoActiveFirstOption
+              #auto="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let producto of productos"
+                [value]="producto.codigo"
+              >
+                ({{producto.marca}} {{ producto.codigo }})
+                {{producto.descripcion}} - ${{
+                (+producto.precio).toLocaleString('en-US',
+                {minimumFractionDigits: 2}) }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        <mat-table #table [dataSource]="dataSource">
+          <!-- Acciones Column -->
+          <ng-container matColumnDef="accion">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary">
+                <mat-icon
+                  aria-label="Example icon-button with a heart icon"
+                  (click)="editarProductoOnClick(element)"
+                  >edit</mat-icon
+                >
+              </button>
+              <button mat-icon-button color="warn">
+                <mat-icon
+                  aria-label="Example icon-button with a heart icon"
+                  (click)="eliminarProducto(element)"
+                  >delete</mat-icon
+                >
+              </button>
+            </mat-cell>
+          </ng-container>
 
-                    <!-- Acciones Column -->
-                    <ng-container matColumnDef="accion">
-                        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
-                        <mat-cell *matCellDef="let element">
-                            <button mat-icon-button color="primary">
-                                <mat-icon aria-label="Example icon-button with a heart icon"
-                                    (click)="editarProductoOnClick(element)">edit</mat-icon>
-                            </button>
-                            <button mat-icon-button color="warn">
-                                <mat-icon aria-label="Example icon-button with a heart icon"
-                                    (click)="eliminarProducto(element)">delete</mat-icon>
-                            </button>
-                        </mat-cell>
-                    </ng-container>
+          <!-- Subtotal Column -->
+          <ng-container matColumnDef="subtotal">
+            <mat-header-cell *matHeaderCellDef> subtotal </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              ${{(element.cantidad * element.precio).toLocaleString('en-US',
+              {minimumFractionDigits: 2})}}
+            </mat-cell>
+          </ng-container>
 
-                    <!-- Subtotal Column -->
-                    <ng-container matColumnDef="subtotal">
-                        <mat-header-cell *matHeaderCellDef> subtotal </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> ${{(element.cantidad * element.precio).toLocaleString('en-US', {minimumFractionDigits: 2})}} </mat-cell>
-                    </ng-container>
+          <!-- Cantidad Column -->
+          <ng-container matColumnDef="cantidad">
+            <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{element.cantidad}}
+            </mat-cell>
+          </ng-container>
 
-                    <!-- Cantidad Column -->
-                    <ng-container matColumnDef="cantidad">
-                        <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.cantidad}} </mat-cell>
-                    </ng-container>
+          <!-- Precio Column -->
+          <ng-container matColumnDef="precio">
+            <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              ${{(+element.precio).toLocaleString('en-US',
+              {minimumFractionDigits: 2})}}
+            </mat-cell>
+          </ng-container>
 
-                    <!-- Precio Column -->
-                    <ng-container matColumnDef="precio">
-                        <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> ${{(+element.precio).toLocaleString('en-US', {minimumFractionDigits: 2})}} </mat-cell>
-                    </ng-container>
+          <!-- Código Column -->
+          <ng-container matColumnDef="codigo">
+            <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+          </ng-container>
 
-                    <!-- Código Column -->
-                    <ng-container matColumnDef="codigo">
-                        <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
-                    </ng-container>
+          <!-- Marca Column -->
+          <ng-container matColumnDef="marca">
+            <mat-header-cell *matHeaderCellDef> Marca </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.marca}} </mat-cell>
+          </ng-container>
 
-                    <!-- Marca Column -->
-                    <ng-container matColumnDef="marca">
-                        <mat-header-cell *matHeaderCellDef> Marca </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.marca}} </mat-cell>
-                    </ng-container>
+          <!-- Posición Column -->
+          <ng-container matColumnDef="descripcion">
+            <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{element.descripcion}}</mat-cell
+            >
+          </ng-container>
 
-                    <!-- Posición Column -->
-                    <ng-container matColumnDef="descripcion">
-                        <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.descripcion}}</mat-cell>
-                    </ng-container>
-
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div fxFlex.gt-lg="30" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    Detalle
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <h3>Prendas: {{cantPrendas}}</h3>
-                <h2>Total: $ {{(total).toLocaleString('en-US', {minimumFractionDigits: 2})}}</h2>
-                <mat-grid-list cols="2">
-                    <mat-grid-tile>
-                        <button mat-raised-button color="primary" (click)="imprimirCarritoOnClick()">Cobrar (F2)</button>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <button mat-raised-button color="warn" (click)="cancelarProductoModal()">Cancelar</button>
-                    </mat-grid-tile>
-                </mat-grid-list>
-                <button mat-button (click)="agregarProductoNuevoOnClick()">Agregar producto nuevo</button>
-            </mat-card-content>
-        </mat-card>
-    </div>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-lg="30" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Detalle </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h3>Prendas: {{cantPrendas}}</h3>
+        <h2>
+          Total: $ {{(total).toLocaleString('en-US', {minimumFractionDigits:
+          2})}}
+        </h2>
+        <mat-grid-list cols="2">
+          <mat-grid-tile>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="imprimirCarritoOnClick()"
+            >
+              Cobrar (F3)
+            </button>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="cancelarProductoModal()"
+            >
+              Cancelar (F6)
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <button mat-button (click)="agregarProductoNuevoOnClick()">
+          Agregar producto nuevo (F4)
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

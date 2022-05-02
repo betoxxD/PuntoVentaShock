@@ -1,4 +1,11 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Inject,
+  HostListener,
+  ViewChild,
+} from "@angular/core";
+import { MatButton } from "@angular/material/button";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as printJS from "print-js";
 import { Producto } from "../../../models/producto.interface";
@@ -9,6 +16,31 @@ import { Producto } from "../../../models/producto.interface";
   styleUrls: ["./ticket.component.css"],
 })
 export class TicketComponent implements OnInit {
+  @ViewChild("btnAceptar") btnAceptar!: MatButton;
+  @ViewChild("btnTicket") btnTicket!: MatButton;
+  @ViewChild("btnCancelar") btnCancelar!: MatButton;
+
+  @HostListener("document:keydown", ["$event"]) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    let functionKeys: string[] = new Array(
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "F11"
+    );
+    if (functionKeys.indexOf(event.key) > -1) {
+      event.preventDefault();
+    }
+  }
+
   carrito: Producto[] = [];
 
   constructor(
@@ -18,7 +50,6 @@ export class TicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.carrito = this.data.carrito;
-    console.log(this.data.carrito);
   }
 
   ngAfterViewInit(): void {
@@ -26,7 +57,7 @@ export class TicketComponent implements OnInit {
   }
 
   // Imprime el contenido en el div con id "ticket"
-  imprimirCarrito() {
+  async imprimirCarrito() {
     printJS({
       printable: "ticket",
       type: "html",
@@ -71,7 +102,7 @@ export class TicketComponent implements OnInit {
         margin: 0;
       }
       `,
-      scanStyles: false
+      scanStyles: false,
     });
   }
 
@@ -96,8 +127,7 @@ export class TicketComponent implements OnInit {
   // Obtiene la fecha actual
   obtenerFechaActual(): string {
     const fecha = new Date();
-    return `${fecha.getDate()}/${fecha.getMonth() +
-      1}/${fecha.getFullYear()}`;
+    return `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
   }
 
   // Obtiene la hora actual
@@ -113,5 +143,30 @@ export class TicketComponent implements OnInit {
   // Cierra el diálogo retornando un valor
   onClick(): void {
     this.dialogRef.close(true);
+  }
+
+  // Maneja el evento de una tecla en el botón de aceptar
+  aceptarOnKeyDown(event: KeyboardEvent): void {
+    if (event.key === "ArrowRight") {
+      this.btnTicket.focus();
+    }
+  }
+
+  // Maneja el evento de una tecla en el botón de ticket
+  ticketOnKeyDown(event: KeyboardEvent): void {
+    if (event.key === "ArrowLeft") {
+      this.btnAceptar.focus();
+    } else if (event.key === "ArrowRight") {
+      this.btnCancelar.focus();
+    } else if (event.key === "Enter") {
+      this.imprimirCarrito();
+    }
+  }
+
+  // Maneja el evento de una tecla en el botón de cancelar
+  cancelarOnKeyDown(event: KeyboardEvent): void {
+    if (event.key === "ArrowLeft") {
+      this.btnTicket.focus();
+    }
   }
 }

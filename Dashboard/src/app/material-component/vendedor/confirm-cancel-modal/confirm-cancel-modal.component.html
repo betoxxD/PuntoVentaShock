@@ -1,8 +1,15 @@
 <h1 mat-dialog-title>Confirmar cancelación</h1>
 <div mat-dialog-content>
-    <h3>¿Estás seguro de cancelar esta venta?</h3>
+  <h3>¿Estás seguro de cancelar esta venta?</h3>
 </div>
 <div class="mat-dialog-actions">
-    <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button (click)="closeWithData()">Aceptar</button>
+  <button
+    mat-button
+    #cancelarButton
+    (click)="onNoClick()"
+    (keypress)="keypressCancel($event)"
+  >
+    Cancelar
+  </button>
+  <button mat-button #aceptarButton (click)="closeWithData()">Aceptar</button>
 </div>
