@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-card-title>Agregar un producto</mat-card-title>
     <form [formGroup]="formInsertarProducto">
-      <div fxLayout="row wrap">
+      <div fxLayout="row wrap" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
         <div
           fxFlex.gt-lg="50"
           fxFlex.gt-md="50"
@@ -11,19 +11,27 @@
         >
           <!-- Código -->
           <mat-form-field>
-            <mat-label>Código</mat-label>
+            <mat-label>Código (F2)</mat-label>
             <input
               type="text"
               matInput
+              [matAutocomplete]="auto"
               placeholder="Código"
               formControlName="codigo"
-              (keydown)="codigoExiste()"
+              (keyup)="codigoExiste($event)"
+              cdkFocusInitial
+              #codigoInput
             />
             <mat-error
               *ngIf="formInsertarProducto.controls['codigo'].errors && formInsertarProducto.controls['codigo'].errors.existingCode"
             >
               Código ya registrado
             </mat-error>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let producto of productosCodigo">
+                {{producto.codigo}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
         <div
@@ -40,7 +48,21 @@
               matInput
               placeholder="Marca"
               formControlName="marca"
+              (keyup)="filtrarProductosMarcaOnInput($event)"
+              [matAutocomplete]="autoMarca"
+              #marcaInput
             />
+            <mat-autocomplete
+              #autoMarca="matAutocomplete"
+              autoActiveFirstOption
+            >
+              <mat-option
+                *ngFor="let producto of productosMarca"
+                [value]="producto.marca"
+              >
+                {{producto.marca}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
         <div
@@ -57,6 +79,8 @@
               matInput
               placeholder="Precio"
               formControlName="precio"
+              (keyup)="precioOnEnter($event)"
+              #precioInput
             />
           </mat-form-field>
         </div>
@@ -68,21 +92,29 @@
               matInput
               placeholder="Descripción del producto"
               formControlName="descripcion"
+              (keyup)="descripcionOnEnter($event)"
+              #descripcionInput
             ></textarea>
           </mat-form-field>
         </div>
       </div>
     </form>
-    <button mat-raised-button color="primary" (click)="insertarProducto()">
-      Agregar
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="insertarProducto()"
+      #btnAgregar
+    >
+      Agregar (F3)
     </button>
     <button
       mat-raised-button
       color="warn"
       style="margin-left: 10px"
       (click)="limpiarFormulario()"
+      #btnLimpiar
     >
-      Limpiar campos
+      Limpiar campos (F6)
     </button>
   </mat-card-content>
 </mat-card>

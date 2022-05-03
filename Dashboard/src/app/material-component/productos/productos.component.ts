@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -9,6 +9,7 @@ import { ProductosService } from "src/app/services/productos/productos.service";
 import Swal from "sweetalert2";
 import { ModifyProductModalComponent } from "./modify-product-modal/modify-product-modal.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatButton } from "@angular/material/button";
 
 @Component({
   selector: "app-productos",
@@ -19,11 +20,49 @@ export class ProductosComponent implements OnInit {
   formInsertarProducto: FormGroup;
 
   productos: Producto[] = [];
+  productosCodigo: Producto[] = [];
+  productosMarca: Producto[] = [];
   productoEdit?: Producto;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild("codigoInput") codigoInput: any;
+  @ViewChild("marcaInput") marcaInput: any;
+  @ViewChild("precioInput") precioInput: any;
+  @ViewChild("descripcionInput") descriptionInput: any;
+  @ViewChild("btnAgregar") btnAgregar!: MatButton;
+  @ViewChild("btnLimpiar") btnLimpiar!: MatButton;
+
+  @HostListener("document:keydown", ["$event"]) onKeydownHandler(
+    event: KeyboardEvent
+  ) {
+    let functionKeys: string[] = new Array(
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "F11"
+    );
+    if (functionKeys.indexOf(event.key) > -1) {
+      event.preventDefault();
+    }
+    if (event.key === "F2") {
+      this.codigoInput.nativeElement.focus();
+    }
+    if (event.key === "F3") {
+      this.insertarProducto();
+    }
+    if (event.key === "F6") {
+      this.limpiarFormulario();
+    }
+  }
 
   displayedColumns = ["descripcion", "precio", "codigo", "marca", "id"];
   dataSource = new MatTableDataSource(this.productos);
@@ -91,6 +130,7 @@ export class ProductosComponent implements OnInit {
         );
     } else {
       console.log("Formulario invalido");
+      this.showToast("Formulario invalido");
     }
   }
 
@@ -169,8 +209,9 @@ export class ProductosComponent implements OnInit {
   }
 
   // Verifica si el código del producto ya se encuentra registrado
-  codigoExiste(): void {
-    const codigo: string = this.formInsertarProducto.value.codigo;
+  codigoExiste(event: any): void {
+    this.filtrarProductosOnInput(event);
+    const codigo: string = event.target.value;
     if (this.formInsertarProducto.controls["codigo"].valid) {
       console.log(
         !this.productos.some((producto) => producto.codigo === codigo)
@@ -193,5 +234,64 @@ export class ProductosComponent implements OnInit {
   // Limpia el formulario
   limpiarFormulario() {
     this.formInsertarProducto.reset();
+  }
+
+  // Filtra los productos de acuerdo al valor ingresado en el buscador
+  filtrarProductosOnInput(event: any) {
+    let valor = event.target.value;
+    valor = valor.trim();
+    if (!!valor && valor.length > 0) {
+      this.productosCodigo = this.productos.filter((producto: Producto) => {
+        return producto.codigo.toLowerCase() == valor.toLowerCase();
+      });
+    } else {
+      this.productosCodigo = [];
+    }
+    if (event.key === "Enter") {
+      this.marcaInput.nativeElement.focus();
+    }
+  }
+
+  // Filtra los productos de acuerdo al valor ingresado en el buscador
+  filtrarProductosMarcaOnInput(event: any) {
+    let valor = event.target.value;
+    valor = valor.trim();
+    if (!!valor && valor.length > 0) {
+      this.productosMarca = this.productos.filter((producto: Producto) => {
+        return producto.marca.toLowerCase().includes(valor.toLowerCase());
+      });
+    } else {
+      this.productosMarca = [];
+    }
+    if (event.key === "Enter") {
+      this.precioInput.nativeElement.focus();
+    }
+  }
+
+  // Controla el evento enter del input de precio
+  precioOnEnter(event: any) {
+    if (event.key === "Enter") {
+      this.descriptionInput.nativeElement.focus();
+    }
+  }
+
+  // Controla el evento enter del input de descripcion
+  descripcionOnEnter(event: any) {
+    if (event.key === "Enter") {
+      this.codigoInput.nativeElement.focus();
+      this.insertarProducto();
+    }
+  }
+
+  btnAgregarOnKeyUp(event: any) {
+    if (event.key === "ArrowRight") {
+      this.btnLimpiar.focus();
+    }
+  }
+
+  btnCancelarOnKeyUp(event: any) {
+    if (event.key === "ArrowLeft") {
+      this.btnAgregar.focus();
+    }
   }
 }
