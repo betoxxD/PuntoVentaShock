@@ -242,7 +242,7 @@ export class ProductosComponent implements OnInit {
     valor = valor.trim();
     if (!!valor && valor.length > 0) {
       this.productosCodigo = this.productos.filter((producto: Producto) => {
-        return producto.codigo.toLowerCase() == valor.toLowerCase();
+        return producto.codigo.toLowerCase().startsWith(valor.toLowerCase());
       });
     } else {
       this.productosCodigo = [];

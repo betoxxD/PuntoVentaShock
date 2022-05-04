@@ -70,7 +70,7 @@ export class ModifyProductModalComponent implements OnInit {
     this.productosCodigo = this.data.productos.filter(
       (producto: Producto) =>
         producto.codigo !== this.producto!.codigo.toLowerCase() &&
-        producto.codigo.toLowerCase() === codigo.toLowerCase()
+        producto.codigo.toLowerCase().startsWith(codigo.toLowerCase())
     );
   }
 
