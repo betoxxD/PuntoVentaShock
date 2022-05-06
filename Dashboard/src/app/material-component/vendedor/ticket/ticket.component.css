@@ -3,21 +3,12 @@
   margin: 0 auto;
   border: 1px solid #000;
   border-radius: 10px;
-}
 
-.logo-contenedor {
-  text-align: center;
-  font-size: 12px;
 }
-
-.logo-contenedor h3 {
-    margin: 0;
-    padding: 0;
-  }
 
 .informacion-general-contenedor {
   text-align: center;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .informacion-general-contenedor p {
@@ -26,7 +17,7 @@
 }
 
 .tabla-productos {
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .tabla-productos table {
@@ -35,12 +26,12 @@
 }
 
 .nota {
-  font-size: 9px;
+  font-size: 12px;
   text-align: center;
 }
 
 .fecha-hora {
-  font-size: 9px;
+  font-size: 12px;
   text-align: center;
 }
 

@@ -62,45 +62,42 @@ export class TicketComponent implements OnInit {
       printable: "ticket",
       type: "html",
       style: `
-      
-      .logo-contenedor {
-        text-align: center;
+      @font-face {
+        font-family: Roboto;
+        src: url(assets/fonts/Roboto-Regular.ttf) format("opentype");
       }
       
-      .logo-contenedor h3 {
-          margin: 0;
-          padding: 0;
-        }
-      
+      * {
+	font-family: 'Roboto', sans-serif;
+	font-size: 12px;
+      }
+
       .informacion-general-contenedor {
-        text-align: center;
-      }
-      
-      .informacion-general-contenedor p {
-        padding: 0;
-        margin: 4pt;
-      }
-      
-      .tabla-productos {
-      }
-      
-      .tabla-productos table {
-        width: 95%;
-        margin: 0 auto;
-      }
-      
-      .nota {
-        text-align: center;
-      }
-      
-      .fecha-hora {
-        text-align: center;
-      }
-      
-      .fecha-hora p {
-        padding: 0;
-        margin: 0;
-      }
+  text-align: center;
+}
+
+.informacion-general-contenedor p {
+  padding: 0;
+  margin: 4px;
+}
+
+.tabla-productos table {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.nota {
+  text-align: center;
+}
+
+.fecha-hora {
+  text-align: center;
+}
+
+.fecha-hora p {
+  padding: 0;
+  margin: 0;
+}
       `,
       scanStyles: false,
     });
