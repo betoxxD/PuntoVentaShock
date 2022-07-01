@@ -117,7 +117,7 @@ export class VendedorComponent implements OnInit {
     valor = valor.trim();
     if (!!valor && valor.length > 0) {
       this.productos = this.todosProductos.filter((producto: Producto) => {
-        return producto.codigo.toLowerCase().includes(valor.toLowerCase());
+        return producto.codigo.toLowerCase().startsWith(valor.toLowerCase());
       });
     } else {
       console.log(this.todosProductos);
