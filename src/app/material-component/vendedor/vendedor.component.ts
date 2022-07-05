@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatTable } from "@angular/material/table";
-import { Producto } from "src/app/models/producto.interface";
-import { ProductosService } from "src/app/services/productos/productos.service";
+import { ProductosService } from "src/app/productos/services/productos.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { IngresarCantidadModalComponent } from "./ingresar-cantidad-modal/ingresar-cantidad-modal.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -11,6 +10,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatInput } from "@angular/material/input";
 import { ConfirmCancelModalComponent } from "./confirm-cancel-modal/confirm-cancel-modal.component";
 import { AgregarProductoModalComponent } from "./agregar-producto-modal/agregar-producto-modal.component";
+import { Producto } from '../../productos/models/producto.interface';
 
 @Component({
   selector: "app-vendedor",

@@ -4,12 +4,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTable, MatTableDataSource } from "@angular/material/table";
-import { Producto } from "src/app/models/producto.interface";
-import { ProductosService } from "src/app/services/productos/productos.service";
+import { ProductosService } from "src/app/productos/services/productos.service";
 import Swal from "sweetalert2";
-import { ModifyProductModalComponent } from "./modify-product-modal/modify-product-modal.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatButton } from "@angular/material/button";
+import { ModifyProductModalComponent } from '../../components/modify-product-modal/modify-product-modal.component';
+import { Producto } from '../../models/producto.interface';
 
 @Component({
   selector: "app-productos",

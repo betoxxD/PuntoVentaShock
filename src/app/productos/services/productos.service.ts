@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Producto } from 'src/app/models/producto.interface';
 import { URL_SERVICES } from 'src/environments/environment';
+import { Producto } from '../models/producto.interface';
 
 @Injectable({
   providedIn: 'root'
