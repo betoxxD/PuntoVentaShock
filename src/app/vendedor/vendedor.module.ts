@@ -10,6 +10,7 @@ import { IngresarCantidadModalComponent } from './components/ingresar-cantidad-m
 import { TicketComponent } from './components/ticket/ticket.component';
 import { DemoMaterialModule } from '../demo-material-module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     VendedorRoutingModule,
     DemoMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ]
 })
 export class VendedorModule { }
