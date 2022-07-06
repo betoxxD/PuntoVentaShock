@@ -19,6 +19,8 @@ import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ProductosModule } from './productos/productos.module';
+import { VendedorModule } from './vendedor/vendedor.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     BrowserModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
+    ProductosModule,
+    VendedorModule,
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,

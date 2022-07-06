@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, ViewChild } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
-import { Producto } from "../../../models/producto.interface";
-import { ProductosService } from "src/app/services/productos/productos.service";
+import { Producto } from "../../../productos/models/producto.interface";
+import { ProductosService } from "src/app/productos/services/productos.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatButton } from "@angular/material/button";
 

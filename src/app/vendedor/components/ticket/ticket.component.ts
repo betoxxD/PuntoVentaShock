@@ -8,7 +8,7 @@ import {
 import { MatButton } from "@angular/material/button";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import * as printJS from "print-js";
-import { Producto } from "../../../models/producto.interface";
+import { Producto } from "../../../productos/models/producto.interface";
 
 @Component({
   selector: "app-ticket",

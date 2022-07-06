@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Producto } from "../../../models/producto.interface";
+import { Producto } from "../../../productos/models/producto.interface";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatButton } from "@angular/material/button";
 
