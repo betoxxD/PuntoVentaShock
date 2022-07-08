@@ -1,0 +1,72 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Prodouctos registrados</mat-card-title>
+    <mat-form-field>
+      <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Filter"
+      />
+    </mat-form-field>
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <!-- Descripición Column -->
+      <ng-container matColumnDef="descripcion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Descripición
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+      </ng-container>
+
+      <!-- Precio Column -->
+      <ng-container matColumnDef="precio">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Precio
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.precio}} </mat-cell>
+      </ng-container>
+
+      <!-- Código Column -->
+      <ng-container matColumnDef="codigo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Código
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+      </ng-container>
+
+      <!-- Marca Column -->
+      <ng-container matColumnDef="marca">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          Marca
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.marca}} </mat-cell>
+      </ng-container>
+
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button color="basic">
+            <mat-icon
+              aria-label="Example icon-button with a heart icon"
+              (click)="editarProductoOnClick(element)"
+              >add</mat-icon
+            >
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator
+      #paginator
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      [showFirstLastButtons]="true"
+    >
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>
+<div class="mat-dialog-actions">
+  <button mat-button (click)="close()">Cancelar</button>
+</div>
