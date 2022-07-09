@@ -1,22 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatSort} from '@angular/material/sort';
-import {MatTable, MatTableDataSource} from '@angular/material/table';
-import {Producto} from 'src/app/productos/models/producto.interface';
-import {ProductosService} from 'src/app/productos/services/productos.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatTable, MatTableDataSource } from "@angular/material/table";
+import { Producto } from "src/app/productos/models/producto.interface";
+import { ProductosService } from "src/app/productos/services/productos.service";
 
 @Component({
-  selector: 'app-buscador',
-  templateUrl: './buscador.component.html',
-  styleUrls: ['./buscador.component.css']
+  selector: "app-buscador",
+  templateUrl: "./buscador.component.html",
+  styleUrls: ["./buscador.component.css"],
 })
 export class BuscadorComponent implements OnInit {
-
-  formInsertarProducto: FormGroup;
-
   productos: Producto[] = [];
   productosCodigo: Producto[] = [];
   productosMarca: Producto[] = [];
@@ -24,35 +20,16 @@ export class BuscadorComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<any>;
-  @ViewChild(MatSort) sort!: MatSort;
 
-
-  displayedColumns = ["descripcion", "precio", "codigo", "marca", "id"];
+  displayedColumns = ["descripcion", "precio", "codigo", "marca"];
   dataSource = new MatTableDataSource(this.productos);
-
-
-  /**
-   * Set the paginator after the view init since this component will
-   * be able to query its view for the initialized paginator.
-   */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
 
   constructor(
     private dialogRef: MatDialogRef<BuscadorComponent>,
     private productosService: ProductosService,
     public toast: MatSnackBar,
     public dialog: MatDialog
-  ) {
-    this.formInsertarProducto = new FormGroup({
-      descripcion: new FormControl(null, Validators.required),
-      precio: new FormControl(null, Validators.required),
-      codigo: new FormControl(null, [Validators.required]),
-      marca: new FormControl(null, Validators.required),
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getProductos();
@@ -64,9 +41,16 @@ export class BuscadorComponent implements OnInit {
       (productos: any) => {
         this.productos = productos.lista;
         this.dataSource = new MatTableDataSource(this.productos);
-        this.table.renderRows();
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.table.renderRows();
+        this.dataSource.filterPredicate = (
+          data: Producto,
+          filter: string
+        ): boolean => {
+          return data.codigo
+            .toLowerCase()
+            .startsWith(filter.trim().toLowerCase());
+        };
       },
       (error) => {
         console.log(error);
@@ -75,8 +59,6 @@ export class BuscadorComponent implements OnInit {
   }
 
   applyFilter(filterValue: string): void {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
 
@@ -88,9 +70,29 @@ export class BuscadorComponent implements OnInit {
     });
   }
 
+  filterOnEnter(value: string): void {
+    let results: Producto[] = this.productos.filter((producto: Producto) => {
+      return producto.codigo
+        .toLowerCase()
+        .startsWith(value.trim().toLowerCase());
+    });
+
+    console.log(results);
+
+    if (results.length === 1) {
+      this.closeWithValue(results[0]);
+    } else {
+      this.showToast("Debe de haber solamente un elemento en la tabla.");
+    }
+  }
+
+  // Retorna el elemento seleccionado y cierra el modal
+  closeWithValue(producto: Producto): void {
+    this.dialogRef.close(producto);
+  }
+
   // Cierra el modal sin un producto
   close(): void {
     this.dialogRef.close();
   }
-
 }

@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatTableDataSource, MatTable } from "@angular/material/table";
 import { ProductosService } from "src/app/productos/services/productos.service";
 import { FormControl, FormGroup } from "@angular/forms";
@@ -108,8 +114,6 @@ export class VendedorComponent implements OnInit {
   obtenerProductos() {
     this._productoService.get().subscribe(
       (res: any) => {
-        // this.productos = res.lista;
-        console.log(this.productos);
         this.todosProductos = res.lista;
       },
       (err: any) => {
@@ -220,11 +224,13 @@ export class VendedorComponent implements OnInit {
   // Abre el modal para buscar un producto
   buscarProducto(): void {
     const dialogRef = this.dialog.open(BuscadorComponent, {
-      width: "800px",
+      width: "1000px",
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      if (!!result) {
+        this.capturarCantidadOnClick({ ...result });
+      }
     });
   }
 
