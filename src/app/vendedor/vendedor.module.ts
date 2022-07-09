@@ -11,6 +11,7 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { DemoMaterialModule } from '../demo-material-module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     CambioModalComponent,
     ConfirmCancelModalComponent,
     IngresarCantidadModalComponent,
-    TicketComponent
+    TicketComponent,
+    BuscadorComponent
   ],
   imports: [
     CommonModule,

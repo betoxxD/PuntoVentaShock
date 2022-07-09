@@ -1,4 +1,10 @@
-import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatTableDataSource, MatTable } from "@angular/material/table";
 import { ProductosService } from "src/app/productos/services/productos.service";
 import { FormControl, FormGroup } from "@angular/forms";
@@ -11,6 +17,7 @@ import { CambioModalComponent } from "../../components/cambio-modal/cambio-modal
 import { TicketComponent } from "../../components/ticket/ticket.component";
 import { ConfirmCancelModalComponent } from "../../components/confirm-cancel-modal/confirm-cancel-modal.component";
 import { AgregarProductoModalComponent } from "../../components/agregar-producto-modal/agregar-producto-modal.component";
+import { BuscadorComponent } from "../../components/buscador/buscador.component";
 
 @Component({
   selector: "app-vendedor",
@@ -40,14 +47,17 @@ export class VendedorComponent implements OnInit {
     if (functionKeys.indexOf(event.key) > -1) {
       event.preventDefault();
     }
-    if (event.key === "F3") {
-      this.imprimirCarritoOnClick();
-    }
     if (event.key === "F2") {
       this.buscar.focus();
     }
+    if (event.key === "F3") {
+      this.imprimirCarritoOnClick();
+    }
     if (event.key === "F4") {
       this.agregarProductoNuevoOnClick();
+    }
+    if (event.key === "F5") {
+      this.buscarProducto();
     }
     if (event.key === "F6") {
       this.cancelarProductoModal();
@@ -80,7 +90,8 @@ export class VendedorComponent implements OnInit {
   constructor(
     private _productoService: ProductosService,
     public dialog: MatDialog,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private cdRef: ChangeDetectorRef
   ) {
     this.form = new FormGroup({
       buscar: new FormControl(""),
@@ -92,17 +103,17 @@ export class VendedorComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
     this.buscar.focus();
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
 
   // Obtiene todos los productos de la base de datos
   obtenerProductos() {
     this._productoService.get().subscribe(
       (res: any) => {
-        // this.productos = res.lista;
-        console.log(this.productos);
         this.todosProductos = res.lista;
       },
       (err: any) => {
@@ -206,6 +217,19 @@ export class VendedorComponent implements OnInit {
       console.log("The dialog was closed");
       if (!!result) {
         this.limpiarCarrito();
+      }
+    });
+  }
+
+  // Abre el modal para buscar un producto
+  buscarProducto(): void {
+    const dialogRef = this.dialog.open(BuscadorComponent, {
+      width: "1000px",
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!!result) {
+        this.capturarCantidadOnClick({ ...result });
       }
     });
   }
