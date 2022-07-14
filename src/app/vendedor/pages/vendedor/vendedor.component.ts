@@ -128,7 +128,7 @@ export class VendedorComponent implements OnInit {
     valor = valor.trim();
     if (!!valor && valor.length > 0) {
       this.productos = this.todosProductos.filter((producto: Producto) => {
-        return producto.codigo.toLowerCase().startsWith(valor.toLowerCase());
+        return producto.codigo.toLowerCase() === valor.toLowerCase();
       });
     } else {
       console.log(this.todosProductos);
@@ -140,8 +140,8 @@ export class VendedorComponent implements OnInit {
   agregarProductoOnChange() {
     const codigo = this.form.value.buscar;
     console.log(codigo);
-    let producto = this.productos.find((producto: Producto) => {
-      return producto.codigo === codigo;
+    let producto = this.productos.find((productoLista: Producto) => {
+      return productoLista.codigo === codigo;
     });
     if (!!producto) {
       this.capturarCantidadOnClick(producto);
