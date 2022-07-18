@@ -1,24 +1,24 @@
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { LocationStrategy, PathLocationStrategy } from "@angular/common";
+import { AppComponent } from "./app.component";
 
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { AppRoutes } from './app.routing';
-import { AppComponent } from './app.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { FullComponent } from "./layouts/full/full.component";
+import { AppHeaderComponent } from "./layouts/full/header/header.component";
+import { AppSidebarComponent } from "./layouts/full/sidebar/sidebar.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DemoMaterialModule } from "./demo-material-module";
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FullComponent } from './layouts/full/full.component';
-import { AppHeaderComponent } from './layouts/full/header/header.component';
-import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DemoMaterialModule } from './demo-material-module';
-
-import { SharedModule } from './shared/shared.module';
-import { SpinnerComponent } from './shared/spinner.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { SharedModule } from "./shared/shared.module";
+import { SpinnerComponent } from "./shared/spinner.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { ProductosModule } from "./productos/productos.module";
+import { VendedorModule } from "./vendedor/vendedor.module";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -26,26 +26,28 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent
+    AppSidebarComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
+    AppRoutingModule,
+    ProductosModule,
+    VendedorModule,
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
-    RouterModule.forRoot(AppRoutes),
     MatDialogModule,
-    SweetAlert2Module.forChild({ /* options */ })
+    SweetAlert2Module.forChild(),
   ],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy
-    }
+      useClass: PathLocationStrategy,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
