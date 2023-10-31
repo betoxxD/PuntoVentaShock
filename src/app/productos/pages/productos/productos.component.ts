@@ -1,13 +1,13 @@
 import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatLegacyPaginator as MatPaginator } from "@angular/material/legacy-paginator";
 import { MatSort } from "@angular/material/sort";
-import { MatTable, MatTableDataSource } from "@angular/material/table";
+import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from "@angular/material/legacy-table";
 import { ProductosService } from "src/app/productos/services/productos.service";
 import Swal from "sweetalert2";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatButton } from "@angular/material/button";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
+import { MatLegacyButton as MatButton } from "@angular/material/legacy-button";
 import { ModifyProductModalComponent } from '../../components/modify-product-modal/modify-product-modal.component';
 import { Producto } from '../../models/producto.interface';
 

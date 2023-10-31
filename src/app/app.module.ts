@@ -14,7 +14,7 @@ import { DemoMaterialModule } from "./demo-material-module";
 
 import { SharedModule } from "./shared/shared.module";
 import { SpinnerComponent } from "./shared/spinner.component";
-import { MatDialogModule } from "@angular/material/dialog";
+import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ProductosModule } from "./productos/productos.module";
 import { VendedorModule } from "./vendedor/vendedor.module";

@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, ViewChild } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from "@angular/material/legacy-dialog";
 import { Producto } from "../../../productos/models/producto.interface";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatButton } from "@angular/material/button";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
+import { MatLegacyButton as MatButton } from "@angular/material/legacy-button";
 
 @Component({
   selector: "app-ingresar-cantidad-modal",

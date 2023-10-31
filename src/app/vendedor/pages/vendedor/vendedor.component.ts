@@ -5,12 +5,12 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { MatTableDataSource, MatTable } from "@angular/material/table";
+import { MatLegacyTableDataSource as MatTableDataSource, MatLegacyTable as MatTable } from "@angular/material/legacy-table";
 import { ProductosService } from "src/app/productos/services/productos.service";
 import { UntypedFormControl, UntypedFormGroup } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatInput } from "@angular/material/input";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
+import { MatLegacyInput as MatInput } from "@angular/material/legacy-input";
 import { Producto } from "src/app/productos/models/producto.interface";
 import { IngresarCantidadModalComponent } from "../../components/ingresar-cantidad-modal/ingresar-cantidad-modal.component";
 import { CambioModalComponent } from "../../components/cambio-modal/cambio-modal.component";
