@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { FormGroup, Validators, FormControl } from "@angular/forms";
+import { UntypedFormGroup, Validators, UntypedFormControl } from "@angular/forms";
 import { Producto } from "../../../productos/models/producto.interface";
 import { ProductosService } from "src/app/productos/services/productos.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -19,7 +19,7 @@ export class AgregarProductoModalComponent implements OnInit {
   @ViewChild("btnAceptar") btnAceptar!: MatButton;
   @ViewChild("btnCancelar") btnCancelar!: MatButton;
 
-  formInsertarProducto: FormGroup;
+  formInsertarProducto: UntypedFormGroup;
   producto?: Producto;
 
   todosProductos: Producto[] = [];
@@ -32,11 +32,11 @@ export class AgregarProductoModalComponent implements OnInit {
     public productosService: ProductosService,
     public toast: MatSnackBar
   ) {
-    this.formInsertarProducto = new FormGroup({
-      descripcion: new FormControl(null, Validators.required),
-      precio: new FormControl(null, Validators.required),
-      codigo: new FormControl(null, Validators.required),
-      marca: new FormControl(null, Validators.required),
+    this.formInsertarProducto = new UntypedFormGroup({
+      descripcion: new UntypedFormControl(null, Validators.required),
+      precio: new UntypedFormControl(null, Validators.required),
+      codigo: new UntypedFormControl(null, Validators.required),
+      marca: new UntypedFormControl(null, Validators.required),
     });
     this.todosProductos = this.data.productos;
     console.log(this.data);

@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { MatTableDataSource, MatTable } from "@angular/material/table";
 import { ProductosService } from "src/app/productos/services/productos.service";
-import { FormControl, FormGroup } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatInput } from "@angular/material/input";
@@ -66,7 +66,7 @@ export class VendedorComponent implements OnInit {
 
   editarFlag = false;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   todosProductos: Producto[] = [];
   productos: Producto[] = [];
@@ -93,8 +93,8 @@ export class VendedorComponent implements OnInit {
     private _snackbar: MatSnackBar,
     private cdRef: ChangeDetectorRef
   ) {
-    this.form = new FormGroup({
-      buscar: new FormControl(""),
+    this.form = new UntypedFormGroup({
+      buscar: new UntypedFormControl(""),
     });
   }
 

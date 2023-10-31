@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormControl, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Producto } from '../../models/producto.interface';
 
@@ -9,7 +9,7 @@ import { Producto } from '../../models/producto.interface';
   styleUrls: ["./modify-product-modal.component.css"],
 })
 export class ModifyProductModalComponent implements OnInit {
-  formInsertarProducto: FormGroup;
+  formInsertarProducto: UntypedFormGroup;
   producto?: Producto;
   productos: Producto[] = [];
   productosCodigo: Producto[] = [];
@@ -24,11 +24,11 @@ export class ModifyProductModalComponent implements OnInit {
     public dialogRef: MatDialogRef<ModifyProductModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.formInsertarProducto = new FormGroup({
-      descripcion: new FormControl(null, Validators.required),
-      precio: new FormControl(null, Validators.required),
-      codigo: new FormControl(null, Validators.required),
-      marca: new FormControl(null, Validators.required),
+    this.formInsertarProducto = new UntypedFormGroup({
+      descripcion: new UntypedFormControl(null, Validators.required),
+      precio: new UntypedFormControl(null, Validators.required),
+      codigo: new UntypedFormControl(null, Validators.required),
+      marca: new UntypedFormControl(null, Validators.required),
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -17,7 +17,7 @@ import { Producto } from '../../models/producto.interface';
   styleUrls: ["./productos.component.css"],
 })
 export class ProductosComponent implements OnInit {
-  formInsertarProducto: FormGroup;
+  formInsertarProducto: UntypedFormGroup;
 
   productos: Producto[] = [];
   productosCodigo: Producto[] = [];
@@ -84,11 +84,11 @@ export class ProductosComponent implements OnInit {
     public toast: MatSnackBar,
     public dialog: MatDialog
   ) {
-    this.formInsertarProducto = new FormGroup({
-      descripcion: new FormControl(null, Validators.required),
-      precio: new FormControl(null, Validators.required),
-      codigo: new FormControl(null, [Validators.required]),
-      marca: new FormControl(null, Validators.required),
+    this.formInsertarProducto = new UntypedFormGroup({
+      descripcion: new UntypedFormControl(null, Validators.required),
+      precio: new UntypedFormControl(null, Validators.required),
+      codigo: new UntypedFormControl(null, [Validators.required]),
+      marca: new UntypedFormControl(null, Validators.required),
     });
   }
 
