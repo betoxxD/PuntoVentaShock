@@ -2,13 +2,8 @@
   <mat-card-content>
     <mat-card-title>Agregar un producto</mat-card-title>
     <form [formGroup]="formInsertarProducto">
-      <div fxLayout="row wrap" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
-        <div
-          fxFlex.gt-lg="50"
-          fxFlex.gt-md="50"
-          fxFlex.gt-xs="100"
-          fxFlex="100"
-        >
+      <div class="row" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+        <div class="col-lg-6 col-md-6 col-12">
           <!-- Código -->
           <mat-form-field>
             <mat-label>Código (F2)</mat-label>
@@ -34,12 +29,7 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div
-          fxFlex.gt-lg="50"
-          fxFlex.gt-md="50"
-          fxFlex.gt-xs="100"
-          fxFlex="100"
-        >
+        <div class="col-lg-6 col-md-6 col-12">
           <!-- Código -->
           <mat-form-field>
             <mat-label>Marca</mat-label>
@@ -65,12 +55,7 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div
-          fxFlex.gt-lg="50"
-          fxFlex.gt-md="50"
-          fxFlex.gt-xs="100"
-          fxFlex="100"
-        >
+        <div class="col-lg-6 col-md-6 col-12">
           <!-- Precio -->
           <mat-form-field>
             <mat-label>Precio</mat-label>
@@ -189,7 +174,7 @@
     <mat-paginator
       #paginator
       [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
+      [pageSizeOptions]="[5, 10, 20, 100]"
       [showFirstLastButtons]="true"
     >
     </mat-paginator>
