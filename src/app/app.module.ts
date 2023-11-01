@@ -5,7 +5,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { LocationStrategy, PathLocationStrategy } from "@angular/common";
 import { AppComponent } from "./app.component";
 
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { FullComponent } from "./layouts/full/full.component";
 import { AppHeaderComponent } from "./layouts/full/header/header.component";
 import { AppSidebarComponent } from "./layouts/full/sidebar/sidebar.component";
@@ -15,7 +14,6 @@ import { DemoMaterialModule } from "./demo-material-module";
 import { SharedModule } from "./shared/shared.module";
 import { SpinnerComponent } from "./shared/spinner.component";
 import { MatLegacyDialogModule as MatDialogModule } from "@angular/material/legacy-dialog";
-import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ProductosModule } from "./productos/productos.module";
 import { VendedorModule } from "./vendedor/vendedor.module";
 import {AppRoutingModule} from "./app-routing.module";
@@ -36,11 +34,9 @@ import {AppRoutingModule} from "./app-routing.module";
     ProductosModule,
     VendedorModule,
     FormsModule,
-    FlexLayoutModule,
     HttpClientModule,
     SharedModule,
     MatDialogModule,
-    SweetAlert2Module.forChild(),
   ],
   providers: [
     {
