@@ -64,7 +64,7 @@ export class VendedorComponent implements OnInit {
     }
   }
 
-  editarFlag = false;
+  editarFlag: boolean = false;
 
   form: UntypedFormGroup;
 
@@ -139,15 +139,24 @@ export class VendedorComponent implements OnInit {
   // Agrega un producto al carrito
   agregarProductoOnChange() {
     const codigo = this.form.value.buscar;
-    console.log(codigo);
     let producto = this.productos.find((productoLista: Producto) => {
       return productoLista.codigo === codigo;
     });
-    if (!!producto) {
+    if (producto) {
       this.capturarCantidadOnClick(producto);
     } else {
       console.log("Producto no encontrado");
+      this.form.controls["buscar"].setErrors({existingCode: false});
     }
+  }
+
+  // Revisar si el código existe
+  consultarCodigo(): boolean {
+    const codigo = this.form.value.buscar;
+    let producto = this.productos.find((productoLista: Producto) => {
+      return productoLista.codigo == codigo;
+    });
+    return (!!producto);
   }
 
   // Editar producto del carrito
@@ -199,7 +208,7 @@ export class VendedorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log("The dialog was closed");
-      if (!!result) {
+      if (result) {
         producto.cantidad = result;
         this.agregarCantidad({ ...producto });
       }
@@ -215,7 +224,7 @@ export class VendedorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log("The dialog was closed");
-      if (!!result) {
+      if (result) {
         this.limpiarCarrito();
       }
     });
@@ -228,7 +237,7 @@ export class VendedorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!!result) {
+      if (result) {
         this.capturarCantidadOnClick({ ...result });
       }
     });
@@ -273,7 +282,7 @@ export class VendedorComponent implements OnInit {
         console.log(result);
         if (!!result && result.printTicket) {
           this.imprimirCarritoOnClick();
-        } else if (!!result) {
+        } else if (result) {
           this.calcularCambio();
         }
         console.log("The dialog was closed");
@@ -292,7 +301,7 @@ export class VendedorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!!result) {
+      if (result) {
         this.limpiarCarrito();
       }
     });

@@ -224,7 +224,6 @@ export class ProductosComponent implements OnInit {
         this.formInsertarProducto.controls["codigo"].setErrors({
           existingCode: true,
         });
-        console.log(this.formInsertarProducto.controls["codigo"].errors);
       } else {
         this.formInsertarProducto.controls["codigo"].setErrors(null);
       }

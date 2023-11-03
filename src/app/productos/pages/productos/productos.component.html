@@ -16,10 +16,10 @@
               (keyup)="codigoExiste($event)"
               cdkFocusInitial
               #codigoInput
-            />
+              />
             <mat-error
               *ngIf="formInsertarProducto.controls['codigo'].errors && formInsertarProducto.controls['codigo'].errors.existingCode"
-            >
+              >
               Código ya registrado
             </mat-error>
             <mat-autocomplete #auto="matAutocomplete">
@@ -41,15 +41,15 @@
               (keyup)="filtrarProductosMarcaOnInput($event)"
               [matAutocomplete]="autoMarca"
               #marcaInput
-            />
+              />
             <mat-autocomplete
               #autoMarca="matAutocomplete"
               autoActiveFirstOption
-            >
+              >
               <mat-option
                 *ngFor="let producto of productosMarca"
                 [value]="producto.marca"
-              >
+                >
                 {{producto.marca}}
               </mat-option>
             </mat-autocomplete>
@@ -66,7 +66,7 @@
               formControlName="precio"
               (keyup)="precioOnEnter($event)"
               #precioInput
-            />
+              />
           </mat-form-field>
         </div>
         <div fxFlex="100">
@@ -79,7 +79,7 @@
               formControlName="descripcion"
               (keyup)="descripcionOnEnter($event)"
               #descripcionInput
-            ></textarea>
+              ></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -89,7 +89,7 @@
       color="primary"
       (click)="insertarProducto()"
       #btnAgregar
-    >
+      >
       Agregar (F3)
     </button>
     <button
@@ -98,7 +98,7 @@
       style="margin-left: 10px"
       (click)="limpiarFormulario()"
       #btnLimpiar
-    >
+      >
       Limpiar campos (F6)
     </button>
   </mat-card-content>
@@ -112,7 +112,7 @@
         matInput
         (keyup)="applyFilter($event.target.value)"
         placeholder="Filter"
-      />
+        />
     </mat-form-field>
     <mat-table #table [dataSource]="dataSource" matSort>
       <!-- Descripición Column -->
@@ -176,7 +176,7 @@
       [pageSize]="10"
       [pageSizeOptions]="[5, 10, 20, 100]"
       [showFirstLastButtons]="true"
-    >
+      >
     </mat-paginator>
   </mat-card-content>
 </mat-card>

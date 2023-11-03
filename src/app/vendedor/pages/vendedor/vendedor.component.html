@@ -17,16 +17,20 @@
               (keyup.enter)="agregarProductoOnChange()"
               formControlName="buscar"
               cdkFocusInitial
-            />
+              />
+            <mat-error
+            *ngIf="form.controls['buscar'].errors && form.controls['buscar'].errors.existingCode"
+            >
+              Producto no registrado
+            </mat-error>
             <mat-autocomplete
-              (optionSelected)="agregarProductoOnChange()"
               autoActiveFirstOption
               #auto="matAutocomplete"
-            >
+              >
               <mat-option
                 *ngFor="let producto of productos"
                 [value]="producto.codigo"
-              >
+                >
                 ({{producto.marca}} {{ producto.codigo }})
                 {{producto.descripcion}} - ${{
                 (+producto.precio).toLocaleString('en-US',
@@ -126,7 +130,7 @@
               mat-raised-button
               color="primary"
               (click)="imprimirCarritoOnClick()"
-            >
+              >
               Cobrar (F3)
             </button>
           </mat-grid-tile>
@@ -135,7 +139,7 @@
               mat-raised-button
               color="warn"
               (click)="cancelarProductoModal()"
-            >
+              >
               Cancelar (F6)
             </button>
           </mat-grid-tile>
