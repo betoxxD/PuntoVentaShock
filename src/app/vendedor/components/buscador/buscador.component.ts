@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatTable, MatTableDataSource } from "@angular/material/table";
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from "@angular/material/legacy-dialog";
+import { MatLegacyPaginator as MatPaginator } from "@angular/material/legacy-paginator";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
+import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from "@angular/material/legacy-table";
 import { Producto } from "src/app/productos/models/producto.interface";
 import { ProductosService } from "src/app/productos/services/productos.service";
 

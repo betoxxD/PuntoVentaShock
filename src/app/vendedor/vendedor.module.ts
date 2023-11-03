@@ -10,7 +10,6 @@ import { IngresarCantidadModalComponent } from './components/ingresar-cantidad-m
 import { TicketComponent } from './components/ticket/ticket.component';
 import { DemoMaterialModule } from '../demo-material-module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 
 
@@ -29,8 +28,7 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     VendedorRoutingModule,
     DemoMaterialModule,
     ReactiveFormsModule,
-    FormsModule,
-    FlexLayoutModule
+    FormsModule
   ]
 })
 export class VendedorModule { }

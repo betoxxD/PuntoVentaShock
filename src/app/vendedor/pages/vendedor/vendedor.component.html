@@ -1,5 +1,5 @@
-<div fxLayout="row wrap">
-  <div fxFlex.gt-lg="70" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100">
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-12">
     <mat-card>
       <mat-card-header>
         <mat-card-title> Carrito </mat-card-title>
@@ -17,16 +17,20 @@
               (keyup.enter)="agregarProductoOnChange()"
               formControlName="buscar"
               cdkFocusInitial
-            />
+              />
+            <mat-error
+            *ngIf="form.controls['buscar'].errors && form.controls['buscar'].errors.existingCode"
+            >
+              Producto no registrado
+            </mat-error>
             <mat-autocomplete
-              (optionSelected)="agregarProductoOnChange()"
               autoActiveFirstOption
               #auto="matAutocomplete"
-            >
+              >
               <mat-option
                 *ngFor="let producto of productos"
                 [value]="producto.codigo"
-              >
+                >
                 ({{producto.marca}} {{ producto.codigo }})
                 {{producto.descripcion}} - ${{
                 (+producto.precio).toLocaleString('en-US',
@@ -109,7 +113,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div fxFlex.gt-lg="30" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+  <div class="col-lg-4 col-md-4 col-12">
     <mat-card>
       <mat-card-header>
         <mat-card-title> Detalle </mat-card-title>
@@ -126,7 +130,7 @@
               mat-raised-button
               color="primary"
               (click)="imprimirCarritoOnClick()"
-            >
+              >
               Cobrar (F3)
             </button>
           </mat-grid-tile>
@@ -135,7 +139,7 @@
               mat-raised-button
               color="warn"
               (click)="cancelarProductoModal()"
-            >
+              >
               Cancelar (F6)
             </button>
           </mat-grid-tile>

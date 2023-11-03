@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { MatButton } from "@angular/material/button";
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from "@angular/material/legacy-dialog";
+import { MatLegacyButton as MatButton } from "@angular/material/legacy-button";
 import { HostListener } from "@angular/core";
 
 @Component({

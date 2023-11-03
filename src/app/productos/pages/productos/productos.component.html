@@ -2,13 +2,8 @@
   <mat-card-content>
     <mat-card-title>Agregar un producto</mat-card-title>
     <form [formGroup]="formInsertarProducto">
-      <div fxLayout="row wrap" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
-        <div
-          fxFlex.gt-lg="50"
-          fxFlex.gt-md="50"
-          fxFlex.gt-xs="100"
-          fxFlex="100"
-        >
+      <div class="row" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+        <div class="col-lg-6 col-md-6 col-12">
           <!-- Código -->
           <mat-form-field>
             <mat-label>Código (F2)</mat-label>
@@ -21,10 +16,10 @@
               (keyup)="codigoExiste($event)"
               cdkFocusInitial
               #codigoInput
-            />
+              />
             <mat-error
               *ngIf="formInsertarProducto.controls['codigo'].errors && formInsertarProducto.controls['codigo'].errors.existingCode"
-            >
+              >
               Código ya registrado
             </mat-error>
             <mat-autocomplete #auto="matAutocomplete">
@@ -34,12 +29,7 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div
-          fxFlex.gt-lg="50"
-          fxFlex.gt-md="50"
-          fxFlex.gt-xs="100"
-          fxFlex="100"
-        >
+        <div class="col-lg-6 col-md-6 col-12">
           <!-- Código -->
           <mat-form-field>
             <mat-label>Marca</mat-label>
@@ -51,26 +41,21 @@
               (keyup)="filtrarProductosMarcaOnInput($event)"
               [matAutocomplete]="autoMarca"
               #marcaInput
-            />
+              />
             <mat-autocomplete
               #autoMarca="matAutocomplete"
               autoActiveFirstOption
-            >
+              >
               <mat-option
                 *ngFor="let producto of productosMarca"
                 [value]="producto.marca"
-              >
+                >
                 {{producto.marca}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div
-          fxFlex.gt-lg="50"
-          fxFlex.gt-md="50"
-          fxFlex.gt-xs="100"
-          fxFlex="100"
-        >
+        <div class="col-lg-6 col-md-6 col-12">
           <!-- Precio -->
           <mat-form-field>
             <mat-label>Precio</mat-label>
@@ -81,7 +66,7 @@
               formControlName="precio"
               (keyup)="precioOnEnter($event)"
               #precioInput
-            />
+              />
           </mat-form-field>
         </div>
         <div fxFlex="100">
@@ -94,7 +79,7 @@
               formControlName="descripcion"
               (keyup)="descripcionOnEnter($event)"
               #descripcionInput
-            ></textarea>
+              ></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -104,7 +89,7 @@
       color="primary"
       (click)="insertarProducto()"
       #btnAgregar
-    >
+      >
       Agregar (F3)
     </button>
     <button
@@ -113,7 +98,7 @@
       style="margin-left: 10px"
       (click)="limpiarFormulario()"
       #btnLimpiar
-    >
+      >
       Limpiar campos (F6)
     </button>
   </mat-card-content>
@@ -127,7 +112,7 @@
         matInput
         (keyup)="applyFilter($event.target.value)"
         placeholder="Filter"
-      />
+        />
     </mat-form-field>
     <mat-table #table [dataSource]="dataSource" matSort>
       <!-- Descripición Column -->
@@ -189,9 +174,9 @@
     <mat-paginator
       #paginator
       [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]"
+      [pageSizeOptions]="[5, 10, 20, 100]"
       [showFirstLastButtons]="true"
-    >
+      >
     </mat-paginator>
   </mat-card-content>
 </mat-card>

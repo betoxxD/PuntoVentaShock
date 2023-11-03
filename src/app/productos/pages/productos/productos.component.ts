@@ -1,13 +1,13 @@
 import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatLegacyPaginator as MatPaginator } from "@angular/material/legacy-paginator";
 import { MatSort } from "@angular/material/sort";
-import { MatTable, MatTableDataSource } from "@angular/material/table";
+import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from "@angular/material/legacy-table";
 import { ProductosService } from "src/app/productos/services/productos.service";
 import Swal from "sweetalert2";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatButton } from "@angular/material/button";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
+import { MatLegacyButton as MatButton } from "@angular/material/legacy-button";
 import { ModifyProductModalComponent } from '../../components/modify-product-modal/modify-product-modal.component';
 import { Producto } from '../../models/producto.interface';
 
@@ -17,7 +17,7 @@ import { Producto } from '../../models/producto.interface';
   styleUrls: ["./productos.component.css"],
 })
 export class ProductosComponent implements OnInit {
-  formInsertarProducto: FormGroup;
+  formInsertarProducto: UntypedFormGroup;
 
   productos: Producto[] = [];
   productosCodigo: Producto[] = [];
@@ -84,11 +84,11 @@ export class ProductosComponent implements OnInit {
     public toast: MatSnackBar,
     public dialog: MatDialog
   ) {
-    this.formInsertarProducto = new FormGroup({
-      descripcion: new FormControl(null, Validators.required),
-      precio: new FormControl(null, Validators.required),
-      codigo: new FormControl(null, [Validators.required]),
-      marca: new FormControl(null, Validators.required),
+    this.formInsertarProducto = new UntypedFormGroup({
+      descripcion: new UntypedFormControl(null, Validators.required),
+      precio: new UntypedFormControl(null, Validators.required),
+      codigo: new UntypedFormControl(null, [Validators.required]),
+      marca: new UntypedFormControl(null, Validators.required),
     });
   }
 
@@ -224,7 +224,6 @@ export class ProductosComponent implements OnInit {
         this.formInsertarProducto.controls["codigo"].setErrors({
           existingCode: true,
         });
-        console.log(this.formInsertarProducto.controls["codigo"].errors);
       } else {
         this.formInsertarProducto.controls["codigo"].setErrors(null);
       }

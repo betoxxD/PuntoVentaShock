@@ -5,12 +5,12 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { MatTableDataSource, MatTable } from "@angular/material/table";
+import { MatLegacyTableDataSource as MatTableDataSource, MatLegacyTable as MatTable } from "@angular/material/legacy-table";
 import { ProductosService } from "src/app/productos/services/productos.service";
-import { FormControl, FormGroup } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatInput } from "@angular/material/input";
+import { UntypedFormControl, UntypedFormGroup } from "@angular/forms";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
+import { MatLegacyInput as MatInput } from "@angular/material/legacy-input";
 import { Producto } from "src/app/productos/models/producto.interface";
 import { IngresarCantidadModalComponent } from "../../components/ingresar-cantidad-modal/ingresar-cantidad-modal.component";
 import { CambioModalComponent } from "../../components/cambio-modal/cambio-modal.component";
@@ -64,9 +64,9 @@ export class VendedorComponent implements OnInit {
     }
   }
 
-  editarFlag = false;
+  editarFlag: boolean = false;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   todosProductos: Producto[] = [];
   productos: Producto[] = [];
@@ -93,8 +93,8 @@ export class VendedorComponent implements OnInit {
     private _snackbar: MatSnackBar,
     private cdRef: ChangeDetectorRef
   ) {
-    this.form = new FormGroup({
-      buscar: new FormControl(""),
+    this.form = new UntypedFormGroup({
+      buscar: new UntypedFormControl(""),
     });
   }
 
@@ -139,15 +139,24 @@ export class VendedorComponent implements OnInit {
   // Agrega un producto al carrito
   agregarProductoOnChange() {
     const codigo = this.form.value.buscar;
-    console.log(codigo);
     let producto = this.productos.find((productoLista: Producto) => {
       return productoLista.codigo === codigo;
     });
-    if (!!producto) {
+    if (producto) {
       this.capturarCantidadOnClick(producto);
     } else {
       console.log("Producto no encontrado");
+      this.form.controls["buscar"].setErrors({existingCode: false});
     }
+  }
+
+  // Revisar si el código existe
+  consultarCodigo(): boolean {
+    const codigo = this.form.value.buscar;
+    let producto = this.productos.find((productoLista: Producto) => {
+      return productoLista.codigo == codigo;
+    });
+    return (!!producto);
   }
 
   // Editar producto del carrito
@@ -199,7 +208,7 @@ export class VendedorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log("The dialog was closed");
-      if (!!result) {
+      if (result) {
         producto.cantidad = result;
         this.agregarCantidad({ ...producto });
       }
@@ -215,7 +224,7 @@ export class VendedorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log("The dialog was closed");
-      if (!!result) {
+      if (result) {
         this.limpiarCarrito();
       }
     });
@@ -228,7 +237,7 @@ export class VendedorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!!result) {
+      if (result) {
         this.capturarCantidadOnClick({ ...result });
       }
     });
@@ -273,7 +282,7 @@ export class VendedorComponent implements OnInit {
         console.log(result);
         if (!!result && result.printTicket) {
           this.imprimirCarritoOnClick();
-        } else if (!!result) {
+        } else if (result) {
           this.calcularCambio();
         }
         console.log("The dialog was closed");
@@ -292,7 +301,7 @@ export class VendedorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (!!result) {
+      if (result) {
         this.limpiarCarrito();
       }
     });

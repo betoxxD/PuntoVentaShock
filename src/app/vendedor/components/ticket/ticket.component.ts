@@ -5,8 +5,8 @@ import {
   HostListener,
   ViewChild,
 } from "@angular/core";
-import { MatButton } from "@angular/material/button";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatLegacyButton as MatButton } from "@angular/material/legacy-button";
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from "@angular/material/legacy-dialog";
 import * as printJS from "print-js";
 import { Producto } from "../../../productos/models/producto.interface";
 

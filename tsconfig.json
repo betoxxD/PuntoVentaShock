@@ -15,7 +15,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "ES2022",
     "strict": true,
     "typeRoots": [
       "node_modules/@types"
@@ -23,6 +23,7 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "useDefineForClassFields": false
   }
 }
