@@ -8,8 +8,8 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  { state: 'vendedor', type: 'link', name: 'Realizar venta', icon: 'sell' },
   { state: 'productos', type: 'link', name: 'Productos', icon: 'inventory' },
+  { state: 'vendedor', type: 'link', name: 'Realizar venta', icon: 'sell' },
   // { state: 'ventas', type: 'link', name: 'Ventas', icon: 'point_of_sale' },
 ];
 
